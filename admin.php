@@ -13,6 +13,7 @@ if(isset($_SESSION["userid"]))
 	}
 }
 
+include("validation.php");
 include("header.php"); 
 include("conection.php");
 
@@ -63,68 +64,72 @@ else
 }
 ?>
 <section id="page">
-<header id="pageheader" class="normalheader">
-<h2 class="sitedescription">
-</h2>
-</header>
-
-<section id="contents">
-
-<article class="post">
-  <header class="postheader">
-  <h2><u>Admin Login</u></h2>
-  <h2><?php echo $log;?></h2>
+  <header id="pageheader" class="normalheader">
+    <h2 class="sitedescription">
+    </h2>
   </header>
-  <section class="entry">
-  <form action="admin.php" method="post" class="form">
-   <p class="textfield">
-      <label for="author">
-             <small>Admin Login ID (required)</small>
-          </label>
-           <input name="uid" id="uid" value="" size="22" tabindex="1" type="text">
-   </p>
-   <p class="textfield">
-   <label for="email">
+
+  <section id="contents">
+
+    <article class="post">
+      <header class="postheader">
+        <h2><u>Admin Login</u></h2>
+        <h2>
+          <?php echo $log;?>
+        </h2>
+      </header>
+      <section class="entry">
+        <form action="admin.php" method="post" class="form">
+          <p class="textfield">
+            <label for="author">
+              <small>Admin Login ID (required)</small>
+            </label>
+            <input name="uid" id="uid" value="" size="22" tabindex="1" type="text">
+          </p>
+          <p class="textfield">
+            <label for="email">
               <small>Password (required)</small>
-          </label>
-       <input name="pwd" id="pwd" value="" size="22" tabindex="2" type="password">
-   </p>
-   <p>
-     <input name="submit" id="submit" tabindex="5" type="image" src="images/submit.png">
-     <input name="comment_post_ID" value="1" type="hidden">
-     
-   </p>
-   <div class="clear"></div>
-</form>
-  <form action="admin.php" method="post" class="form">
-<div class="clear">
-<hr />
-  <header class="postheader">
-    <h2><u>Lectures Login</u></h2>
-    <h2><?php echo $log12;?></h2>
-  </header>
-  <section class="entry">
+            </label>
+            <input name="pwd" id="pwd" value="" size="22" tabindex="2" type="password">
+          </p>
+          <p>
+            <input name="submit" id="submit" tabindex="5" type="image" src="images/submit.png">
+            <input name="comment_post_ID" value="1" type="hidden">
 
-      <p class="textfield">
-        <label for="author2"> <small><br />
-          Lecture Login ID (required)</small> </label>
-        <input name="luid" id="luid" value="" size="22" tabindex="3" type="text" />
-      </p>
-      <p class="textfield">
-        <label for="email2"> <small>Password (required)</small> </label>
-        <input name="lpwd" id="lpwd" size="22" tabindex="4" type="password" />
-      </p>
-      <p>
-        <input name="submit2" id="submit2" tabindex="5" type="image" src="images/submit.png" />
-        <input name="comment_post_ID2" value="1" type="hidden" />
-      </p>
-      <div class="clear"></div>
-    </form>
-    <div class="clear"></div>
+          </p>
+          <div class="clear"></div>
+        </form>
+        <form action="admin.php" method="post" class="form">
+          <div class="clear">
+            <hr />
+            <header class="postheader">
+              <h2><u>Lectures Login</u></h2>
+              <h2>
+                <?php echo $log12;?>
+              </h2>
+            </header>
+            <section class="entry">
+
+              <p class="textfield">
+                <label for="author2"> <small><br />
+                    Lecture Login ID (required)</small> </label>
+                <input name="luid" id="luid" value="" size="22" tabindex="3" type="text" />
+              </p>
+              <p class="textfield">
+                <label for="email2"> <small>Password (required)</small> </label>
+                <input name="lpwd" id="lpwd" size="22" tabindex="4" type="password" />
+              </p>
+              <p>
+                <input name="submit2" id="submit2" tabindex="5" type="image" src="images/submit.png" />
+                <input name="comment_post_ID2" value="1" type="hidden" />
+              </p>
+              <div class="clear"></div>
+        </form>
+        <div class="clear"></div>
+      </section>
+      </div>
   </section>
-</div>
-</section>
-</article>
+  </article>
 </section>
 
 <?php 

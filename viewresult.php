@@ -2,7 +2,9 @@
 session_start();
 
 include("header.php"); 
-include("conection.php"); ?>
+include("conection.php"); 
+include("validation.php");
+?>
 <section id="page">
 <header id="pageheader" class="homeheader">
 <h2 class="sitedescription">  </h2>
@@ -10,7 +12,7 @@ include("conection.php"); ?>
 
 <section id="contents">
 
-<article class="post">
+<article class="post mx-3">
 <header class="postheader">
 <h2><a href="result.php">Student Registration No.</a></h2>
 </header>
@@ -24,7 +26,7 @@ include("conection.php"); ?>
   </p>
 </form>
 </article>
-<article class="post">
+<article class="post mx-3">
   <header class="postheader">
     <h2>Search by Name and Class</h2>
   </header>
@@ -53,7 +55,7 @@ echo "<option value='$row1[courseid]'>$row1[coursekey]</option>";
       </p>
 </form>
 <?php
-if(isset($_POST[submitresult]))
+if(isset($_POST["submitresult"]))
 {
 	 $searchstu = mysql_query("SELECT * FROM studentdetails where (studfname LIKE '$_POST[textfield2]' OR `studlname` LIKE '$_POST[textfield2]') AND courseid ='$_POST[select]' ");
 	

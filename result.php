@@ -1,12 +1,13 @@
 <?php 
 include("conection.php");
-if(isset($_GET[resid]))
+if(isset($_GET["resid"]))
 {
-$rid =	$_GET[resid];
+$rid =	$_GET["resid"];
 }
 else
 {
-	$rid =	$_POST[rollno];
+$rid =	$_POST["rollno"];
+  
 }
 $result= mysql_query("SELECT * FROM studentdetails where studid='$rid' ");
 $result1= mysql_query("SELECT * FROM course");
@@ -16,7 +17,7 @@ $result3= mysql_query("SELECT * FROM examination where studid='$rid'");
   {
 	  $regno = $row1[studid];
 	  $name = $row1['studfname'] . " " . $row1['studlname'] ;
-	  $fathersname = $row1[fathername];
+	  $fathersname = $row1["fathername"];
 	  $course = $row1[courseid];
 	  $semester = $row1[semester];
 	  $dob = $row1[dob];
