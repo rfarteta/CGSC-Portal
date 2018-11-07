@@ -8,7 +8,14 @@
 
     <title>Album example for Bootstrap</title>
 
-    <?php include("validation.php"); ?>
+    <?php include("validation.php");
+    
+    $app->get('/cowsay', function() use($app) {
+      $app['monolog']->addDebug('cowsay');
+      return "<pre>".\Cowsayphp\Cow::say("Cool beans")."</pre>";
+    });
+    
+    ?>
   </head>
 
   <body data-gr-c-s-loaded="true">
