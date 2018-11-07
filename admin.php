@@ -15,6 +15,7 @@ if(isset($_SESSION["userid"]))
 
 include("header.php"); 
 include("conection.php");
+
 if(isset($_POST["uid"]) && isset($_POST["pwd"]) )
 {
 //	echo "sdfsd".	$_POST[uid];

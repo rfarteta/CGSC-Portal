@@ -1,14 +1,8 @@
-<footer id="pagefooter">
-<div id="f-content">
-<img src="images/bamboo.png" width="96" height="125" alt="bamboo" id="footerimg">
-<div id="credits">
-<p class="sitecredit"> 2012 @ All Rights Reserved | </p>
-<p class="designcredit">Student Information System</p>
-
-</div>
-</div>
-
+<footer class="text-muted">
+      <div class="container">
+        <p class="float-right">
+          <a href="#">Back to top</a>
+        </p>
+        <p>All Rights Reserved © Academic and Registration Information System - Group 7 - AICS</p>
+      </div>
 </footer>
-
-</body>
-</html>
