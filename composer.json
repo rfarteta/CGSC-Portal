@@ -1,7 +1,0 @@
-{
-    "name": "aics/cgsc",
-    "description": "Academic Portal",
-    "require": {
-        "alrik11es/cowsayphp": "^1.2"
-    }
-}
