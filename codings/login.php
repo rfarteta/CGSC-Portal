@@ -2,9 +2,9 @@
 include("conection.php");
 if(isset($_POST["button"]))
 {
-$result = mysql_query("SELECT * FROM administrator
+$result = mysqli_query($con,"SELECT * FROM administrator
 WHERE adminid='$_POST[uid]' and password='$_POST[pwd]'");
-if(mysql_num_rows($result)==0)
+if(mysqli_num_rows($result)==0)
 {
 $log =  "Login failed";
 }

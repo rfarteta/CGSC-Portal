@@ -14,9 +14,9 @@ for($i=0;$i<$_POST["tst"];$i++)
 VALUES
 ('$studid[$i]','$subid[$j]','$_POST[ttcourse]','$_POST[tintt]','$_POST[tmarks]','$submark[$j]','$resul[$j]','$comment[$j]')";
 
-if (!mysql_query($sql,$con))
+if (!mysqli_query($con,$sql,$con))
   {
-  die('Error: ' . mysql_error());
+  die('Error: ' . mysqli_error());
   }
   else
   {
@@ -41,9 +41,9 @@ if (!mysql_query($sql,$con))
 VALUES
 ('$examid[$i]','$_POST[subid]','$_POST[totclass]','$attclass[$i]','$percent[$i]','$comment[$i]')";
 
-if (!mysql_query($sql,$con))
+if (!mysqli_query($con,$sql,$con))
   {
-  die('Error: ' . mysql_error());
+  die('Error: ' . mysqli_error());
   }
   else
   {
@@ -53,14 +53,14 @@ echo "1 record added";
 	 
    }
 
-$rescourse = mysql_query("SELECT * FROM course where courseid='$_POST[course]'");
-while($row1 = mysql_fetch_array($rescourse))
+$rescourse = mysqli_query($con,"SELECT * FROM course where courseid='$_POST[course]'");
+while($row1 = mysqli_fetch_array($rescourse))
   {
 	$courseid =   $row1["courseid"];
 	$coursename =   $row1["coursename"];
   }
-  $resclass = mysql_query("SELECT * FROM subject where subid='$_POST[subject]'");
-while($row2 = mysql_fetch_array($resclass))
+  $resclass = mysqli_query($con,"SELECT * FROM subject where subid='$_POST[subject]'");
+while($row2 = mysqli_fetch_array($resclass))
   {
 	$subid =   $row2["subid"];
 	$subname =   $row2["subname"];
@@ -68,16 +68,16 @@ while($row2 = mysql_fetch_array($resclass))
   */
   
   
-    $restotst = mysql_query("SELECT * FROM studentdetails 
+    $restotst = mysqli_query($con,"SELECT * FROM studentdetails 
  where courseid='$_POST[course]' AND semester ='$_POST[semester]'");
-$tstudent = mysql_num_rows($restotst);
+$tstudent = mysqli_num_rows($restotst);
 
-  $restotstrec = mysql_query("SELECT * FROM studentdetails where courseid='$_POST[course]' AND semester='$_POST[semester]'");
+  $restotstrec = mysqli_query($con,"SELECT * FROM studentdetails where courseid='$_POST[course]' AND semester='$_POST[semester]'");
 
-$ressub = mysql_query("SELECT * FROM subject where courseid='$_POST[course]' AND semester='$_POST[semester]'");
+$ressub = mysqli_query($con,"SELECT * FROM subject where courseid='$_POST[course]' AND semester='$_POST[semester]'");
 
-$restotsub = mysql_query("SELECT * FROM subject where courseid='$_POST[course]' AND semester='$_POST[semester]'");
-$tsub = mysql_num_rows($restotsub);
+$restotsub = mysqli_query($con,"SELECT * FROM subject where courseid='$_POST[course]' AND semester='$_POST[semester]'");
+$tsub = mysqli_num_rows($restotsub);
 ?>
 <table width="1000" border="1">
 <form name="form3" method="post" action="">
@@ -104,7 +104,7 @@ $tsub = mysql_num_rows($restotsub);
     <td width="107"><strong>Roll No.</strong></td>
     <td width="144"><strong>Student Name</strong></td>
     <?php
-	while($rowab = mysql_fetch_array($ressub))
+	while($rowab = mysqli_fetch_array($ressub))
   {
     echo "<td><strong> $rowab[subname] </strong>
 	<input type='hidden' value='$rowab[subid]' name='subid[]'>
@@ -118,7 +118,7 @@ $tsub = mysql_num_rows($restotsub);
   </tr>
 <?php
  
- while($rowa = mysql_fetch_array($restotstrec))
+ while($rowa = mysqli_fetch_array($restotstrec))
   {
   ?>
   <tr>
@@ -129,8 +129,8 @@ $tsub = mysql_num_rows($restotsub);
 <input type="hidden" value="<?php echo $rowa[studid]; ?>" name="stuid[]"?/>
 <input type="hidden" value="<?php echo $tstudent; ?>" name="tst"?/>
        <?php
-	   $ressubb = mysql_query("SELECT * FROM subject where courseid='$_POST[course]' AND semester='$_POST[semester]'");
-	while($rowabb = mysql_fetch_array($ressubb))
+	   $ressubb = mysqli_query($con,"SELECT * FROM subject where courseid='$_POST[course]' AND semester='$_POST[semester]'");
+	while($rowabb = mysqli_fetch_array($ressubb))
   {
     echo "<td><input type='text' name='subidd[]' size='5'></td>";
 	
@@ -159,7 +159,7 @@ $tsub = mysql_num_rows($restotsub);
 <table width="1000" border="0">
   <?php
  
- while($rowa = mysql_fetch_array($restotstrec))
+ while($rowa = mysqli_fetch_array($restotstrec))
   {
   ?>
   <?php

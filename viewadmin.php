@@ -7,13 +7,13 @@ $sql="INSERT INTO administrator (adminid, password, adminname,	address, contactn
 VALUES
 ('$_POST[textadmin]','$pa','$_POST[textname]','$_POST[textadd]','$_POST[textcont]')";
 
-if (!mysql_query($sql,$con))
+if (!mysqli_query($con,$sql,$con))
   {
-  die('Error: ' . mysql_error());
+  die('Error: ' . mysqli_error());
   }
 echo "1 record added";
 
-$result = mysql_query("SELECT * FROM administrator");
+$result = mysqli_query($con,"SELECT * FROM administrator");
 
 ?> 
 
@@ -57,7 +57,7 @@ $result = mysql_query("SELECT * FROM administrator");
   </tr>
 <?php
 /*
-  while($row = mysql_fetch_array($result))
+  while($row = mysqli_fetch_array($result))
   {
   echo "<tr>";
   echo "<td>&nbsp;" . $row['adminid'] . "</td>";

@@ -14,9 +14,9 @@ include("conection.php");
 VALUES
 ('$subid[$i]', '$_POST[subname]', '$_POST[subtype]', '$comment[$i]')";
 
-if (!mysql_query($sql,$con))
+if (!mysqli_query($con,$sql,$con))
   {
-  die('Error: ' . mysql_error());
+  die('Error: ' . mysqli_error());
   }
   else
   {
@@ -26,22 +26,22 @@ echo "1 record added";
 	 
    }
 
-$rescourse = mysql_query("SELECT * FROM course where courseid='$_POST[course]'");
-while($row1 = mysql_fetch_array($rescourse))
+$rescourse = mysqli_query($con,"SELECT * FROM course where courseid='$_POST[course]'");
+while($row1 = mysqli_fetch_array($rescourse))
   {
 	$courseid =   $row1["courseid"];
 	$coursename =   $row1["coursename"];
   }
-  $resclass = mysql_query("SELECT * FROM subject where subid='$_POST[subject]'");
-while($row2 = mysql_fetch_array($resclass))
+  $resclass = mysqli_query($con,"SELECT * FROM subject where subid='$_POST[subject]'");
+while($row2 = mysqli_fetch_array($resclass))
   {
 	$subid =   $row2["subid"];
 	$subname =   $row2["subname"];
   }
   
-    $restotsub = mysql_query("SELECT * FROM subject 
+    $restotsub = mysqli_query($con,"SELECT * FROM subject 
  where courseid='$_POST[course]' AND semester ='$_POST[semester]'");
-$tsubject = mysql_num_rows($restotsub);
+$tsubject = mysqli_num_rows($restotsub);
 ?>
 <table width="690" border="1">
   <tr>
@@ -64,7 +64,7 @@ $tsubject = mysql_num_rows($restotsub);
   <input name="subtype" type="hidden" size="10" value="<?php echo $_POST[subtype]; ?>"/>
  
   <?php
- while($rowa = mysql_fetch_array($restotstrec))
+ while($rowa = mysqli_fetch_array($restotstrec))
   {
   ?>
   <input name="subid[]" type="hidden" size="10" value="<?php echo $rowa[subid]; ?>"/>

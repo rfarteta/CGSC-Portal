@@ -1,11 +1,15 @@
 <?php
-include("header.php");
+include("validation.php");
 include("conection.php");
+include("sidebar.php");
+
+if(isset($_GET["view"])){
 if($_GET["view"] == "delete")
 {
-mysql_query("DELETE FROM contact WHERE contactid ='$_GET[slid]'");
+mysqli_query($con,"DELETE FROM contact WHERE contactid ='$_GET[slid]'");
 }
-$result = mysql_query("SELECT * FROM contact");
+}
+$result = mysqli_query($con,"SELECT * FROM contact");
 ?>
 <section id="page">
 <header id="pageheader" class="normalheader">
@@ -29,7 +33,7 @@ $result = mysql_query("SELECT * FROM contact");
   </tr>
   <?php
 	  $i =1;
-  while($row = mysql_fetch_array($result))
+  while($row = mysqli_fetch_array($result))
   {
   echo "<tr>";
   echo "<td>&nbsp";

@@ -1,8 +1,9 @@
 <?php
 session_start();
-include("header.php");
+include("validation.php");
 include("conection.php");
 include("modal.php");
+include("sidebar.php");
 ?>
 
 <script>
@@ -52,31 +53,33 @@ function getXMLHTTP() { //fuction to return the xml http object
 </script>
 
 <?php
+if(isset($_GET["view"])){
 	if($_GET["view"] == "delete")
 	{
-	mysql_query("DELETE FROM attendance WHERE attid ='$_GET[slid]'");
+	mysqli_query($con,"DELETE FROM attendance WHERE attid ='$_GET[slid]'");
 	}
+}	
 if(isset($_SESSION["userid"]))
 {
-	if(isset($_GET[first])) 
+	if(isset($_GET["first"])) 
 	{
 	}
 	else
 	{
-		$_GET[first] =0;
-	$_GET[last] = 10;
+		$_GET["first"] =0;
+	$_GET["last"] = 10;
 	}
 	if(isset($_POST["button"]))
 	{
 		
-		$resultax = mysql_query("SELECT * FROM attendance where subid='$_POST[subject]'");
+		$resultax = mysqli_query($con,"SELECT * FROM attendance where subid='$_POST[subject]'");
 	}
 	else
 	{
-	$result = mysql_query("SELECT * FROM attendance LIMIT $_GET[first] , $_GET[last]");
+	$result = mysqli_query($con,"SELECT * FROM attendance LIMIT $_GET[first] , $_GET[last]");
 	}
-$result1 = mysql_query("SELECT * FROM course LIMIT $_GET[first] , $_GET[last]");
-$result2 = mysql_query("SELECT * FROM subject LIMIT $_GET[first] , $_GET[last]");
+$result1 = mysqli_query($con,"SELECT * FROM course LIMIT $_GET[first] , $_GET[last]");
+$result2 = mysqli_query($con,"SELECT * FROM subject LIMIT $_GET[first] , $_GET[last]");
 ?>
 <section id="page">
 <header id="pageheader" class="normalheader">
@@ -98,8 +101,8 @@ $result2 = mysql_query("SELECT * FROM subject LIMIT $_GET[first] , $_GET[last]")
   </header>
   <section class="entry">
      <?php 
-
-if(mysql_num_rows($resultax) >= 1)
+if(!empty($resultax)){ 
+if(mysqli_num_rows($resultax) >= 1)
 {
 	?>
 <table width="490" border="1">
@@ -115,19 +118,19 @@ if(mysql_num_rows($resultax) >= 1)
         </tr>
         <?php
 	   $i =$_GET[first]+1;
-  while($row = mysql_fetch_array($resultax))
+  while($row = mysqli_fetch_array($resultax))
   {
   echo "<tr>";
   echo "<td>&nbsp;"  . $i . "</td>";
   echo "<td>&nbsp;" . $row['studid'] . "</td>";
-  $result5 = mysql_query("SELECT * FROM studentdetails where  	studid='$row[studid]'");
-    	   while($rowa= mysql_fetch_array($result5))
+  $result5 = mysqli_query($con,"SELECT * FROM studentdetails where  	studid='$row[studid]'");
+    	   while($rowa= mysqli_fetch_array($result5))
   {
 		  echo "<td>&nbsp;" . $rowa['studfname'] . " " . $rowa['studlname'] . "</td>";
   }
   
-    $result55 = mysql_query("SELECT * FROM subject where subid='$row[subid]'");
-    	   while($rowasy= mysql_fetch_array($result55))
+    $result55 = mysqli_query($con,"SELECT * FROM subject where subid='$row[subid]'");
+    	   while($rowasy= mysqli_fetch_array($result55))
   {
 		  echo "<td>&nbsp;" . $rowasy['subname'] . "</td>";
   }
@@ -164,7 +167,7 @@ $last = $_GET[last]+ 10;
           <td>&nbsp;</td>
           <td>&nbsp;</td>
           <td><?php 
-	if($first > mysql_num_rows($result))
+	if($first > mysqli_num_rows($result))
 	{ 
 	} 
 	else 
@@ -179,6 +182,7 @@ $last = $_GET[last]+ 10;
     </table>
     
       <?php
+	}
 }
 else
 {
@@ -208,7 +212,6 @@ else
 }
 if($_SESSION["type"]=="admin")
 	{
-	include("adminmenu.php");
 	}
 	else
 	{	

@@ -2,9 +2,9 @@
 include("validation.php");
 include("conection.php");
 
-$totcourse = mysql_query("SELECT * FROM subject");
-$totid = mysql_num_rows($totcourse);
- while($row1 = mysql_fetch_array($totcourse))
+$totcourse = mysqli_query($con,"SELECT * FROM subject");
+$totid = mysqli_num_rows($totcourse);
+ while($row1 = mysqli_fetch_array($totcourse))
   {
 $totid = $row1[0]+1;
   }
@@ -14,9 +14,9 @@ $sql="INSERT INTO subject (subid, subname, comment, courseid,subtype, semester)
 VALUES
 ('$_POST[subid]','$_POST[subname]','$_POST[comment]','$_POST[course]','$_POST[subtype]','$_POST[semester]')";
 
-if (!mysql_query($sql,$con))
+if (!mysqli_query($con,$sql,$con))
   {
-  die('Error: ' . mysql_error());
+  die('Error: ' . mysqli_error());
   }
   else
   {
@@ -26,15 +26,15 @@ if (!mysql_query($sql,$con))
 
 if(isset($_POST["button2"]))
 {
-mysql_query("UPDATE subject SET subname='$_POST[subname]', 	comment='$_POST[comment]', 	courseid='$_POST[courseid]', 	subtype='$_POST[subtype]', 	semester='$_POST[semester]', 	lecid='$_POST[lecid]' WHERE subid = '$_POST[subid]'");
+mysqli_query($con,"UPDATE subject SET subname='$_POST[subname]', 	comment='$_POST[comment]', 	courseid='$_POST[courseid]', 	subtype='$_POST[subtype]', 	semester='$_POST[semester]', 	lecid='$_POST[lecid]' WHERE subid = '$_POST[subid]'");
 echo "Record updated successfully...";
 }
 
 
 if($_GET["view"] == "subject")
 {
-$result = mysql_query("SELECT * FROM subject where subid='$_GET[slid]'");	
- while($row1 = mysql_fetch_array($result))
+$result = mysqli_query($con,"SELECT * FROM subject where subid='$_GET[slid]'");	
+ while($row1 = mysqli_fetch_array($result))
   {
 	$totid = $row1["subid"];
 	$subname = $row1["subname"];
@@ -46,9 +46,9 @@ $result = mysql_query("SELECT * FROM subject where subid='$_GET[slid]'");
 	}
 }
 
-$result = mysql_query("SELECT * FROM subject");
-$result1 = mysql_query("SELECT * FROM course");
-$reslec = mysql_query("SELECT * FROM lectures");
+$result = mysqli_query($con,"SELECT * FROM subject");
+$result1 = mysqli_query($con,"SELECT * FROM course");
+$reslec = mysqli_query($con,"SELECT * FROM lectures");
 
 
 
@@ -71,7 +71,7 @@ $reslec = mysql_query("SELECT * FROM lectures");
     <select name="course" value="<?php echo $courseid; ?>">
      <option value="">Course Details</option>
      <?php
-	  while($row1 = mysql_fetch_array($result1))
+	  while($row1 = mysqli_fetch_array($result1))
   {
 	  if($courseid  == $row1[courseid])
 	  {
@@ -105,7 +105,7 @@ $reslec = mysql_query("SELECT * FROM lectures");
   <p>Lecture 
     <select name="semester2" id="semester2" value="<?php echo $lecid; ?>">
       <?php
- while($row1 = mysql_fetch_array($reslec))
+ while($row1 = mysqli_fetch_array($reslec))
   {
   echo "<option value='$row1[lecid]'>$row1[lecname]</option>";
   }

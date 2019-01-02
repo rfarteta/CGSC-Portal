@@ -52,7 +52,7 @@ include("conection.php");
 //echo  $_POST["totstdnt"];
 if(isset($_POST["btnupdte"]))
 	{
-		mysql_query("UPDATE attendance SET totalclasses = '$_POST[totclass]',
+		mysqli_query($con,"UPDATE attendance SET totalclasses = '$_POST[totclass]',
 attendedclasses = '$attclass[$i],'percentage='$percent[$i]',comment='$comment[$i]' WHERE attid ='$_POST[attid]'");
 	}
 	
@@ -60,23 +60,23 @@ if(isset($_POST[button2]))
 	{
   for($i=0;$i<=$_POST["totstdnt"];$i++)
   {
-	  mysql_query("DELETE FROM attendance WHERE subid = '$_POST[subid]'");
+	  mysqli_query($con,"DELETE FROM attendance WHERE subid = '$_POST[subid]'");
      //echo "Item".$stuid[$i]."<br>\n";
 	 $sql="INSERT INTO attendance (studid,subid,totalclasses,attendedclasses,percentage,comment)
 VALUES
 ('$stuid[$i]','$_POST[subid]','$_POST[totclass]','$attclass[$i]','$percent[$i]','$comment[$i]')";
 
-if (!mysql_query($sql,$con))
+if (!mysqli_query($sql,$con))
   {
-  die('Error: ' . mysql_error());
+  die('Error: ' . mysqli_error());
   }
 	 
    }
 	}
 if(isset($_GET[slid]))
 {
-$rescourse1 = mysql_query("SELECT * FROM attendance where attid ='$_GET[slid]'");
-while($rowED = mysql_fetch_array($rescourse1))
+$rescourse1 = mysqli_query($con,"SELECT * FROM attendance where attid ='$_GET[slid]'");
+while($rowED = mysqli_fetch_array($rescourse1))
   {
 $attid = $rowED[attid];
 $studid =$rowED[studid];
@@ -89,36 +89,36 @@ $comment = $rowED[comment];
   
 }
 
-$rescourse = mysql_query("SELECT * FROM course where courseid='$_POST[course]'");
-while($row1 = mysql_fetch_array($rescourse))
+$rescourse = mysqli_query($con,"SELECT * FROM course where courseid='$_POST[course]'");
+while($row1 = mysqli_fetch_array($rescourse))
   {
 	$courseid =   $row1["courseid"];
 	$coursename =   $row1["coursename"];
   }
-  $resclass = mysql_query("SELECT * FROM subject where subid='$_POST[subject]'");
-while($row2 = mysql_fetch_array($resclass))
+  $resclass = mysqli_query($con,"SELECT * FROM subject where subid='$_POST[subject]'");
+while($row2 = mysqli_fetch_array($resclass))
   {
 	$subid =   $row2["subid"];
 	$subname =   $row2["subname"];
   }
   
-    $restotst = mysql_query("SELECT * FROM studentdetails 
+    $restotst = mysqli_query($con,"SELECT * FROM studentdetails 
  where courseid='$_POST[course]' AND semester ='$_POST[semester]'");
-$tstudent = mysql_num_rows($restotst);
+$tstudent = mysqli_num_rows($restotst);
 
  
  
 if(isset($_GET[slid]))
 {
 
-  $restotstrec = mysql_query("SELECT * FROM studentdetails 
+  $restotstrec = mysqli_query($con,"SELECT * FROM studentdetails 
  where studid ='$studid'");
 
 
 }
 	else
 	{
-		 $restotstrec = mysql_query("SELECT * FROM studentdetails 
+		 $restotstrec = mysqli_query($con,"SELECT * FROM studentdetails 
  where courseid='$_POST[course]' AND semester ='$_POST[semester]'");
 	
 ?>
@@ -165,7 +165,7 @@ if(isset($_GET[slid]))
         <input name="attid" type="hidden" size="10" value="<?php echo $_GET[slid]; ?>"/>
  <?php
  
- while($rowa = mysql_fetch_array($restotstrec))
+ while($rowa = mysqli_fetch_array($restotstrec))
   {
   ?>
   <input name="stuid[]" type="hidden" size="10" value="<?php echo $rowa[studid]; ?>"/>

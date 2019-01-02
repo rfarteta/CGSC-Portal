@@ -1,30 +1,31 @@
 <?php
 session_start();
-include("header.php");
+include("validation.php");
 include("conection.php");
 include("modal.php");
+include("sidebar.php");
 if(isset($_SESSION["userid"]))
 {
-	if(isset($_GET[first])) 
+	if(isset($_GET["first"])) 
 	{
 	}
 	else
 	{
-		$_GET[first] =0;
-	$_GET[last] = 10;
+		$_GET["first"] =0;
+	$_GET["last"] = 10;
 	}
 
 	if(isset($_POST["button"]))
 	{
-		$resultac = mysql_query("SELECT * FROM examination");
-	echo	mysql_num_rows($result);
+		$resultac = mysqli_query($con,"SELECT * FROM examination");
+	echo	mysqli_num_rows($result);
 	}
 	else
 	{
-	$result = mysql_query("SELECT * FROM examination LIMIT $_GET[first] , $_GET[last]");
+	$result = mysqli_query($con,"SELECT * FROM examination LIMIT $_GET[first] , $_GET[last]");
 	}
-$result1 = mysql_query("SELECT * FROM course LIMIT $_GET[first] , $_GET[last]");
-$result2 = mysql_query("SELECT * FROM subject LIMIT $_GET[first] , $_GET[last]");
+$result1 = mysqli_query($con,"SELECT * FROM course LIMIT $_GET[first] , $_GET[last]");
+$result2 = mysqli_query($con,"SELECT * FROM subject LIMIT $_GET[first] , $_GET[last]");
 ?>
 
 
@@ -90,8 +91,10 @@ function getXMLHTTP() { //fuction to return the xml http object
   </header>
   <section class="entry">
      <p>
-       <?php 
-if(mysql_num_rows($resultac) >= 1)
+	   <?php 
+
+if(!empty($resultac)){ 
+if(mysqli_num_rows($resultac) >= 1)
 {
 	?>
      </p>
@@ -109,7 +112,7 @@ if(mysql_num_rows($resultac) >= 1)
   </tr>
       <?php
 	 $i =$_GET[first]+1;
-  while($row = mysql_fetch_array($resultac))
+  while($row = mysqli_fetch_array($resultac))
   {
   echo "<tr>";
   echo "<td>&nbsp;"  . $i . "</td>";
@@ -151,7 +154,7 @@ $last = $_GET[last]+ 10;
           <td>&nbsp;</td>
           <td>&nbsp;</td>
           <td><?php 
-	if($first > mysql_num_rows($result))
+	if($first > mysqli_num_rows($result))
 	{ 
 	} 
 	else 
@@ -165,6 +168,7 @@ $last = $_GET[last]+ 10;
 </table>
      <p>
        <?php
+  }
 }
 else
 {
@@ -196,7 +200,6 @@ else
 }
 if($_SESSION["type"]=="admin")
 	{
-	include("adminmenu.php");
 	}
 	else
 	{	

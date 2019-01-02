@@ -1,11 +1,10 @@
 <?php
 session_start();
- include("header.php"); 
 session_destroy();
 ?>
 <section id="page">
 <header id="pageheader" class="homeheader">
-<h2 class="sitedescription">Student Information System.  </h2>
+<h2 class="sitedescription">Christian Grace School of Cavite - Academic Registration Information System</h2>
 </header>
 
 <section id="contents">

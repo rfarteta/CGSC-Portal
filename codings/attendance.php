@@ -1,7 +1,7 @@
 <?php
 include("conection.php");
-$result = mysql_query("SELECT * FROM course");
-$result1 = mysql_query("SELECT * FROM subject");
+$result = mysqli_query($con,"SELECT * FROM course");
+$result1 = mysqli_query($con,"SELECT * FROM subject");
 ?>
 <form name="form1" method="post" action="attendanceinsert.php">
   <p>
@@ -11,7 +11,7 @@ $result1 = mysql_query("SELECT * FROM subject");
     <select name="course" >
      <option value="">Course Details</option>
      <?php
- while($row1 = mysql_fetch_array($result))
+ while($row1 = mysqli_fetch_array($result))
   {
   echo "<option value='$row1[courseid]'>$row1[coursename]</option>";
   }
@@ -37,7 +37,7 @@ $result1 = mysql_query("SELECT * FROM subject");
     <label for="select3"></label>
     <select name="subject" id="select3">
     <?php
- while($row2 = mysql_fetch_array($result1))
+ while($row2 = mysqli_fetch_array($result1))
   {
   echo "<option value='$row2[subid]'>$row2[subname]</option>";
   }

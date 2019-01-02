@@ -2,12 +2,12 @@
 include("conection.php");
 //if(isset($_POST["button"]))
 {
-mysql_query("UPDATE examination SET scored='$_POST[scored]', 	result='$_POST[result]' WHERE examid ='$_POST[examid]'");
+mysqli_query($con,"UPDATE examination SET scored='$_POST[scored]', 	result='$_POST[result]' WHERE examid ='$_POST[examid]'");
 
 }
 
-$result = mysql_query("SELECT * FROM examination where examid ='$_GET[exid]'");	
- while($row = mysql_fetch_array($result))
+$result = mysqli_query($con,"SELECT * FROM examination where examid ='$_GET[exid]'");	
+ while($row = mysqli_fetch_array($result))
   {
 	 
 $examid =  $row[examid]; 	

@@ -4,9 +4,9 @@ $sql="INSERT INTO subject (subid, subname, comment, courseid,subtype, semester)
 VALUES
 ('$_POST[subid]','$_POST[subname]','$_POST[comment]','$_POST[course]','$_POST[subtype]','$_POST[semester]')";
 
-if (!mysql_query($sql,$con))
+if (!mysqli_query($con,$sql,$con))
   {
-  die('Error: ' . mysql_error());
+  die('Error: ' . mysqli_error());
   }
   else
   {
@@ -14,9 +14,9 @@ if (!mysql_query($sql,$con))
   }
 echo "1 record added";
 
-$result = mysql_query("SELECT * FROM subject");
-$result1 = mysql_query("SELECT * FROM course");
-$reslec = mysql_query("SELECT * FROM lectures");
+$result = mysqli_query($con,"SELECT * FROM subject");
+$result1 = mysqli_query($con,"SELECT * FROM course");
+$reslec = mysqli_query($con,"SELECT * FROM lectures");
 ?> 
 <form name="form1" method="post" action="">
   <p>
@@ -36,7 +36,7 @@ $reslec = mysql_query("SELECT * FROM lectures");
     <select name="course" id="select2">
      <option value="">Course Details</option>
      <?php
- while($row1 = mysql_fetch_array($result1))
+ while($row1 = mysqli_fetch_array($result1))
   {
   echo "<option value='$row1[courseid]'>$row1[coursename]</option>";
   }
@@ -65,7 +65,7 @@ $reslec = mysql_query("SELECT * FROM lectures");
   <p>Lecture 
     <select name="semester2" id="semester2">
       <?php
- while($row1 = mysql_fetch_array($reslec))
+ while($row1 = mysqli_fetch_array($reslec))
   {
   echo "<option value='$row1[lecid]'>$row1[lecname]</option>";
   }
@@ -89,7 +89,7 @@ $reslec = mysql_query("SELECT * FROM lectures");
     
   </tr>
     <?php
-  while($row = mysql_fetch_array($result))
+  while($row = mysqli_fetch_array($result))
   {
   echo "<tr>";
   echo "<td>&nbsp;" . $row['subid'] . "</td>";

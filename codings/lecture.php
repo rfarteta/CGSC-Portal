@@ -9,9 +9,9 @@ $sql="INSERT INTO lectures (lecid, password, lecname, address ,contactno)
 VALUES
 ('$_POST[lecid]','$pwde','$_POST[lecname]','$_POST[address]','$_POST[contactno]')";
 
-if (!mysql_query($sql,$con))
+if (!mysqli_query($con,$sql,$con))
   {
-  die('Error: ' . mysql_error());
+  die('Error: ' . mysqli_error());
   }
   else
   {
@@ -19,7 +19,7 @@ if (!mysql_query($sql,$con))
   }
 }
 
-$result = mysql_query("SELECT * FROM lectures");
+$result = mysqli_query($con,"SELECT * FROM lectures");
 */
 ?> 
 <form name="form1" method="post" action="">

@@ -4,13 +4,13 @@ $sql="INSERT INTO course (courseid, coursename, comment, coursekey)
 VALUES
 ('$_POST[courseid]','$_POST[coursename]','$_POST[comment]','$_POST[coursekey]')";
 
-if (!mysql_query($sql,$con))
+if (!mysqli_query($con,$sql,$con))
   {
-  die('Error: ' . mysql_error());
+  die('Error: ' . mysqli_error());
   }
 echo "1 record added";
 
-$result = mysql_query("SELECT * FROM course");
+$result = mysqli_query($con,"SELECT * FROM course");
 ?> 
 <form name="form1" method="post" action="">
   <p>
@@ -41,7 +41,7 @@ $result = mysql_query("SELECT * FROM course");
     <th width="92" scope="col">Course Key</th>
   </tr>
   <?php
-  while($row = mysql_fetch_array($result))
+  while($row = mysqli_fetch_array($result))
   {
   echo "<tr>";
   echo "<td>&nbsp;" . $row['courseid'] . "</td>";

@@ -19,9 +19,9 @@ $sql="INSERT INTO studentdetails (studid, studfname, studlname, dob, fathername,
 VALUES
 ('$_POST[studid]','$_POST[studfname]','$_POST[studlname]','$dbda','$_POST[fname]','$_POST[gender]','$_POST[address]','$_POST[contact]','$_POST[course]','$_POST[semester]')";
 
-if (!mysql_query($sql,$con))
+if (!mysqli_query($con,$sql,$con))
   {
-  die('Error: ' . mysql_error());
+  die('Error: ' . mysqli_error());
   }
   else
   {
@@ -32,15 +32,15 @@ if (!mysql_query($sql,$con))
 
 if(isset($_POST["button2"]))
 {
-mysql_query("UPDATE studentdetails SET studfname='$_POST[studfname]', 		studlname='$_POST[studlname]', 	dob='$dbda', 	fathername='$_POST[fathername]', address='$_POST[address]', 		contactno='$_POST[contactno]', 	courseid='$_POST[courseid]', 	semester='$_POST[semester]' WHERE studid = '$_POST[studid]'");
+mysqli_query($con,"UPDATE studentdetails SET studfname='$_POST[studfname]', 		studlname='$_POST[studlname]', 	dob='$dbda', 	fathername='$_POST[fathername]', address='$_POST[address]', 		contactno='$_POST[contactno]', 	courseid='$_POST[courseid]', 	semester='$_POST[semester]' WHERE studid = '$_POST[studid]'");
 echo "Record updated successfully...";
 }
 
 
 if($_GET["view"] == "studentdetails")
 {
-$result = mysql_query("SELECT * FROM studentdetails where studid='$_GET[slid]'");	
- while($row1 = mysql_fetch_array($result))
+$result = mysqli_query($con,"SELECT * FROM studentdetails where studid='$_GET[slid]'");	
+ while($row1 = mysqli_fetch_array($result))
   {
 	$totid = $row1["studid"];
 	$studfname = $row1["studfname"];
@@ -56,7 +56,7 @@ $result = mysql_query("SELECT * FROM studentdetails where studid='$_GET[slid]'")
 }
 
 
-$result1 = mysql_query("SELECT * FROM course");
+$result1 = mysqli_query($con,"SELECT * FROM course");
 
 
 
@@ -112,7 +112,7 @@ $result1 = mysql_query("SELECT * FROM course");
     <select name="course" value="<?php echo $courseid; ?>">
       <option value="">Course Details</option>
       <?php
-	  while($row1 = mysql_fetch_array($result1))
+	  while($row1 = mysqli_fetch_array($result1))
   {
 	  if($courseid  == $row1[courseid])
 	  {

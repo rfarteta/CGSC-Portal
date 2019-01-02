@@ -2,7 +2,7 @@
 include("header.php");
 include("conection.php");
 
-$result = mysql_query("SELECT * FROM attendance");
+$result = mysqli_query($con,"SELECT * FROM attendance");
 ?>
 <section id="page">
 <header id="pageheader" class="normalheader">
@@ -30,7 +30,7 @@ Attendance Details.  </h2>
   </tr>
    <?php
 	  $i =1;
-  while($row = mysql_fetch_array($result))
+  while($row = mysqli_fetch_array($result))
   {
   echo "<tr>";
   echo "<td>&nbsp;"  . $i . "</td>";

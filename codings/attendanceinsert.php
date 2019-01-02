@@ -15,9 +15,9 @@ include("conection.php");
 VALUES
 ('$stuid[$i]','$_POST[subid]','$_POST[totclass]','$attclass[$i]','$percent[$i]','$comment[$i]')";
 
-if (!mysql_query($sql,$con))
+if (!mysqli_query($con,$sql,$con))
   {
-  die('Error: ' . mysql_error());
+  die('Error: ' . mysqli_error());
   }
   else
   {
@@ -27,24 +27,24 @@ echo "1 record added";
 	 
    }
 
-$rescourse = mysql_query("SELECT * FROM course where courseid='$_POST[course]'");
-while($row1 = mysql_fetch_array($rescourse))
+$rescourse = mysqli_query($con,"SELECT * FROM course where courseid='$_POST[course]'");
+while($row1 = mysqli_fetch_array($rescourse))
   {
 	$courseid =   $row1["courseid"];
 	$coursename =   $row1["coursename"];
   }
-  $resclass = mysql_query("SELECT * FROM subject where subid='$_POST[subject]'");
-while($row2 = mysql_fetch_array($resclass))
+  $resclass = mysqli_query($con,"SELECT * FROM subject where subid='$_POST[subject]'");
+while($row2 = mysqli_fetch_array($resclass))
   {
 	$subid =   $row2["subid"];
 	$subname =   $row2["subname"];
   }
   
-    $restotst = mysql_query("SELECT * FROM studentdetails 
+    $restotst = mysqli_query($con,"SELECT * FROM studentdetails 
  where courseid='$_POST[course]' AND semester ='$_POST[semester]'");
-$tstudent = mysql_num_rows($restotst);
+$tstudent = mysqli_num_rows($restotst);
 
-  $restotstrec = mysql_query("SELECT * FROM studentdetails 
+  $restotstrec = mysqli_query($con,"SELECT * FROM studentdetails 
  where courseid='$_POST[course]' AND semester ='$_POST[semester]'");
 
 ?>
@@ -78,7 +78,7 @@ $tstudent = mysql_num_rows($restotst);
         <input name="totstdnt" type="hidden" size="10" value="<?php echo $tstudent; ?>"/>
  <?php
  
- while($rowa = mysql_fetch_array($restotstrec))
+ while($rowa = mysqli_fetch_array($restotstrec))
   {
   ?>
   <input name="stuid[]" type="hidden" size="10" value="<?php echo $rowa[studid]; ?>"/>

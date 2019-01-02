@@ -9,11 +9,11 @@ else
 $rid =	$_POST["rollno"];
   
 }
-$result= mysql_query("SELECT * FROM studentdetails where studid='$rid' ");
-$result1= mysql_query("SELECT * FROM course");
-$result2= mysql_query("SELECT * FROM attendance");
-$result3= mysql_query("SELECT * FROM examination where studid='$rid'");
- while($row1 = mysql_fetch_array($result))
+$result= mysqli_query($con,"SELECT * FROM studentdetails where studid='$rid' ");
+$result1= mysqli_query($con,"SELECT * FROM course");
+$result2= mysqli_query($con,"SELECT * FROM attendance");
+$result3= mysqli_query($con,"SELECT * FROM examination where studid='$rid'");
+ while($row1 = mysqli_fetch_array($result))
   {
 	  $regno = $row1[studid];
 	  $name = $row1['studfname'] . " " . $row1['studlname'] ;
@@ -71,25 +71,25 @@ a {color:#F60;}
     <tr>
        <?php
 	  $i =1;
-  while($row = mysql_fetch_array($result))
+  while($row = mysqli_fetch_array($result))
   {
   echo "<tr>";
   echo "<td>&nbsp;"  . $i . "</td>";
   echo "<td>&nbsp;" . $row['subname'] . "</td>";
-  $result4 = mysql_query("SELECT * FROM subject where  	subid='$row[subid]'");
-    	   while($rowa= mysql_fetch_array($result))
+  $result4 = mysqli_query($con,"SELECT * FROM subject where  	subid='$row[subid]'");
+    	   while($rowa= mysqli_fetch_array($result))
   {
 		  echo "<td>&nbsp;" . $rowa['studfname'] . " " . $rowa['studlname'] . "</td>";
   }
   
-    $result55 = mysql_query("SELECT * FROM subject where subid='$row[subid]'");
+    $result55 = mysqli_query($con,"SELECT * FROM subject where subid='$row[subid]'");
     	
   }
   
 ?>
     </tr>
      <?php
-     while($row3 = mysql_fetch_array($result3))
+     while($row3 = mysqli_fetch_array($result3))
   {?>
     <tr>
       <td>&nbsp;<?php echo $row3[subid]; ?> </td>
@@ -107,8 +107,8 @@ a {color:#F60;}
       <td>Total</td>
       <td>&nbsp;
       <?php
-       $result552 = mysql_query("SELECT SUM(scored) FROM examination  where studid='$rid'");
-while($row22 = mysql_fetch_array($result552))
+       $result552 = mysqli_query($con,"SELECT SUM(scored) FROM examination  where studid='$rid'");
+while($row22 = mysqli_fetch_array($result552))
   {
 	  echo $tota = $row22[0];
   }
@@ -121,7 +121,7 @@ while($row22 = mysql_fetch_array($result552))
       <td>&nbsp;</td>
       <td>Percentage</td>
       <td>&nbsp; <?php
-      	 $perca = $tota/ mysql_num_rows($result3);
+      	 $perca = $tota/ mysqli_num_rows($result3);
 		echo number_format( $perca, 2, '.', '');
 		  ?>
  </td>
@@ -138,7 +138,7 @@ while($row22 = mysql_fetch_array($result552))
       <td width="205">Comment</td>
     </tr>
     <?php
-     while($row4 = mysql_fetch_array($result2))
+     while($row4 = mysqli_fetch_array($result2))
   {?>
     <tr>
       <td>&nbsp;<?php echo $row4[subid]; ?></td>

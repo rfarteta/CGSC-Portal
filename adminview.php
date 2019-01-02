@@ -1,25 +1,30 @@
 <?php 
 session_start();
 
-include("header.php"); 
+include("validation.php"); 
 include("conection.php");
 include("modal.php");
+include("sidebar.php");
 $abc = 100;
+
+if(isset($_GET["view"])){
+
 if($_GET["view"] == "delete")
-{
-mysql_query("DELETE FROM administrator WHERE adminid ='$_GET[slid]'");
+  {
+  mysqli_query($con,"DELETE FROM administrator WHERE adminid ='$_GET[slid]'");
+  }
 }
 if(isset($_SESSION["userid"]))
 {
-	if(isset($_GET[first])) 
+	if(isset($_GET["first"])) 
 	{
 	}
 	else
 	{
-		$_GET[first] =0;
-	$_GET[last] = 10;
+		$_GET["first"] =0;
+	$_GET["last"] = 10;
 	}
-$result = mysql_query("SELECT * FROM administrator LIMIT $_GET[first] , $_GET[last]");
+$result = mysqli_query($con,"SELECT * FROM administrator LIMIT $_GET[first] , $_GET[last]");
 
 ?>
 <section id="page">
@@ -46,8 +51,8 @@ Admin Details.  </h2>
   </tr>
   
   <?php
-    $i =$_GET[first]+1;
-  while($row = mysql_fetch_array($result))
+    $i =$_GET["first"]+1;
+  while($row = mysqli_fetch_array($result))
   {
   echo "<tr>";
   echo "<td align=center>&nbsp;" . $i . "</td>";
@@ -62,8 +67,8 @@ Admin Details.  </h2>
 echo "</tr>&nbsp;";
 	$i++;
   }
-  $first=$_GET[first]-10;
-$last= $_GET[last]- 10;
+  $first=$_GET["first"]-10;
+$last= $_GET["last"]- 10;
   ?>
   <tr>
     <th scope="col"><?php 
@@ -80,13 +85,13 @@ $last= $_GET[last]- 10;
     <th scope="col">
 <a href="#" onClick="openadmin(); return false"><img src="images/add.png" width="32" height="32" /></a> <span id="youremail" style="color: red"></span>
 </a></th> <?php 
-$first=$_GET[first]+10;
-$last = $_GET[last]+ 10;
+$first=$_GET["first"]+10;
+$last = $_GET["last"]+ 10;
 ?>
     <th scope="col">&nbsp;</th>
       <th scope="col">&nbsp;</th>
     <th scope="col"><?php 
-	if($first > mysql_num_rows($result))
+	if($first > mysqli_num_rows($result))
 	{ 
 	} 
 	else 
@@ -109,8 +114,6 @@ else
 {
 		header("Location: admin.php");
 }
-
-include("adminmenu.php");
 include("footer.php"); 
 
 ?>

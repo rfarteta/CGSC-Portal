@@ -7,9 +7,9 @@ $sql="INSERT INTO studentdetails (studid, studfname, studlname, dob,fathername, 
 VALUES
 ('$_POST[studid]','$_POST[studfname]','$_POST[studlname]','$_POST[dob]','$_POST[fname]','$_POST[gender]','$_POST[address]','$_POST[contact]','$_POST[course]','$_POST[semester]')";
 
-if (!mysql_query($sql,$con))
+if (!mysqli_query($con,$sql,$con))
   {
-  die('Error: ' . mysql_error());
+  die('Error: ' . mysqli_error());
   }
   else
   {
@@ -17,8 +17,8 @@ if (!mysql_query($sql,$con))
   }
 }
 
-$result = mysql_query("SELECT * FROM studentdetails");
-$result1 = mysql_query("SELECT * FROM course");
+$result = mysqli_query($con,"SELECT * FROM studentdetails");
+$result1 = mysqli_query($con,"SELECT * FROM course");
 ?> 
 <form name="form1" method="post" action="" id="formID" class="formular">
   <p>
@@ -60,7 +60,7 @@ $result1 = mysql_query("SELECT * FROM course");
     <select name="course">
      <option value="">Course Details</option>
      <?php
- while($row1 = mysql_fetch_array($result1))
+ while($row1 = mysqli_fetch_array($result1))
   {
   echo "<option value='$row1[courseid]'>$row1[coursename]</option>";
   }
@@ -94,7 +94,7 @@ $result1 = mysql_query("SELECT * FROM course");
     <td width="59">Semester</td>
   </tr>
   <?php
-  while($row = mysql_fetch_array($result))
+  while($row = mysqli_fetch_array($result))
   {
   echo "<tr>";
   echo "<td>&nbsp;" . $row['studid'] . "</td>";

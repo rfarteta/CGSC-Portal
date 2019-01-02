@@ -38,12 +38,12 @@ include("validation.php");
     <p>
       <label for="select">Course</label>
    <?php
-      $rescourse = mysql_query("SELECT * FROM course ");
+      $rescourse = mysqli_query($con,"SELECT * FROM course ");
 
   ?>
       <select name="select" id="select">
       <?php
-      while($row1 = mysql_fetch_array($rescourse))
+      while($row1 = mysqli_fetch_array($rescourse))
   {
 echo "<option value='$row1[courseid]'>$row1[coursekey]</option>";
   }
@@ -57,7 +57,7 @@ echo "<option value='$row1[courseid]'>$row1[coursekey]</option>";
 <?php
 if(isset($_POST["submitresult"]))
 {
-	 $searchstu = mysql_query("SELECT * FROM studentdetails where (studfname LIKE '$_POST[textfield2]' OR `studlname` LIKE '$_POST[textfield2]') AND courseid ='$_POST[select]' ");
+	 $searchstu = mysqli_query($con,"SELECT * FROM studentdetails where (studfname LIKE '$_POST[textfield2]' OR `studlname` LIKE '$_POST[textfield2]') AND courseid ='$_POST[select]' ");
 	
 ?>
 <form name="form2" method="post" action="viewresult.php">
@@ -74,7 +74,7 @@ if(isset($_POST["submitresult"]))
     
      <?php
 	 
-      while($rowc = mysql_fetch_array($searchstu))
+      while($rowc = mysqli_fetch_array($searchstu))
   {
   ?><tr>
       <td>&nbsp;<?php echo $rowc["studid"];?></td>

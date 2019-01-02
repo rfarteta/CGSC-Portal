@@ -3,9 +3,9 @@ include("validation.php");
 
 include("conection.php");
 
-$totcourse = mysql_query("SELECT * FROM lectures");
-$result1 = mysql_query("SELECT * FROM course");
-$totid = mysql_num_rows($totcourse)+1;
+$totcourse = mysqli_query($con,"SELECT * FROM lectures");
+$result1 = mysqli_query($con,"SELECT * FROM course");
+$totid = mysqli_num_rows($totcourse)+1;
 
 if(isset($_POST[button]))
 {
@@ -14,9 +14,9 @@ $sql="INSERT INTO lectures (lecid, password, courseid, lecname, gender, address 
 VALUES
 ('$_POST[lecid]','$pwde', '$_POST[course]',  '$_POST[lecname]', '$_POST[gender]','$_POST[address]','$_POST[contactno]')";
 
-if (!mysql_query($sql,$con))
+if (!mysqli_query($con,$sql,$con))
   {
-  die('Error: ' . mysql_error());
+  die('Error: ' . mysqli_error());
   }
   else
   {
@@ -27,15 +27,15 @@ if (!mysql_query($sql,$con))
 if(isset($_POST["button2"]))
 {
 	$pwde = md5($_POST[password]);
-mysql_query("UPDATE lectures SET lecname='$_POST[lecname]',     gender='$_POST[gender]', address='$_POST[address]', courseid='$_POST[coursekey]' 	contactno='$_POST[contactno]' WHERE lecid = '$_POST[lecid]'");
+mysqli_query($con,"UPDATE lectures SET lecname='$_POST[lecname]',     gender='$_POST[gender]', address='$_POST[address]', courseid='$_POST[coursekey]' 	contactno='$_POST[contactno]' WHERE lecid = '$_POST[lecid]'");
 echo "Record updated successfully...";
 }
 
 
 if($_GET["view"] == "lectures")
 {
-$result = mysql_query("SELECT * FROM lectures where lecid='$_GET[slid]'");	
- while($row1 = mysql_fetch_array($result))
+$result = mysqli_query($con,"SELECT * FROM lectures where lecid='$_GET[slid]'");	
+ while($row1 = mysqli_fetch_array($result))
   {
 	$totid = $row1["lecid"];
 	$lecname = $row1["lecname"];
@@ -48,7 +48,7 @@ $result = mysql_query("SELECT * FROM lectures where lecid='$_GET[slid]'");
 }
 else
 {
-$result = mysql_query("SELECT * FROM lectures");
+$result = mysqli_query($con,"SELECT * FROM lectures");
 }
 
 ?> 
@@ -75,7 +75,7 @@ $result = mysql_query("SELECT * FROM lectures");
     <select name="course" value="<?php echo $courseid; ?>">
       <option value="">Course Details</option>
       <?php
-	  while($row1 = mysql_fetch_array($result1))
+	  while($row1 = mysqli_fetch_array($result1))
   {
 	  if($courseid  == $row1[courseid])
 	  {

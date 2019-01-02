@@ -1,16 +1,22 @@
 <?php
-session_start();
+if(!session_id()) session_start();
 include("conection.php");
 
-$query="select city from subject where courseid=$courseid ";
-$result=mysql_query($query);
-if(isset($_SESSION[coid]))
+if(!empty($courseid)){ 
+$query="select city from subject where courseid=$courseid";
+}
+
+if(!empty($query)){ 
+$result=mysqli_query($con,$query);
+}
+
+if(isset($_SESSION["coid"]))
 {
-$result2 = mysql_query("SELECT DISTINCT courseid FROM subject where courseid='$_SESSION[coid]'");
+$result2 = mysqli_query($con,"SELECT DISTINCT courseid FROM subject where courseid='$_SESSION[coid]'");
 }
 else
 {
-$result2 = mysql_query("SELECT DISTINCT courseid FROM subject");	
+$result2 = mysqli_query($con,"SELECT DISTINCT courseid FROM subject");	
 }
 ?>
 <script>
@@ -70,11 +76,11 @@ function getXMLHTTP() { //fuction to return the xml http object
     <td  width="150"><select name="course" onChange="getCity('findrec.php?course='+this.value)">
 	<option value="">Select Course</option>
 	<?php
-    while($row1 = mysql_fetch_array($result2))
+    while($row1 = mysqli_fetch_array($result2))
   {
-	  $result21 = mysql_query("SELECT * FROM course where courseid='$row1[courseid]'");
+	  $result21 = mysqli_query($con,"SELECT * FROM course where courseid='$row1[courseid]'");
 	echo "<option value='$row1[courseid]'>";
-		  while($row11 = mysql_fetch_array($result21))
+		  while($row11 = mysqli_fetch_array($result21))
   {
 	  echo $row11["coursekey"];
   }

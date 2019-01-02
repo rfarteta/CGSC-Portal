@@ -8,24 +8,24 @@ $sql="INSERT INTO administrator (adminid, adminname, password, address, contactn
 VALUES
 ('$_POST[adminid]','$_POST[adminname]','$pwde','$_POST[address]','$_POST[contactno]')";
 
-if (!mysql_query($sql,$con))
+if (!mysqli_query($sql,$con))
   {
-  die('Error: ' . mysql_error());
+  die('Error: ' . mysqli_error());
   }
   else
   {
 	  echo "1 record Inserted Successfully...";
   }
 }
-$result = mysql_query("SELECT * FROM administrator");
-while($row1 = mysql_fetch_array($result))
+$result = mysqli_query($con,"SELECT * FROM administrator");
+while($row1 = mysqli_fetch_array($result))
   {
 	$adminid = $row1["adminid"]+1;
 	}
 if(isset($_POST["button2"]))
 {
 	$pwde = md5($_POST[password]);
-mysql_query("UPDATE administrator SET 	adminname='$_POST[adminname]', 	address='$_POST[address]', 	contactno='$_POST[contactno]'
+mysqli_query($con,"UPDATE administrator SET 	adminname='$_POST[adminname]', 	address='$_POST[address]', 	contactno='$_POST[contactno]'
 WHERE adminid = '$_POST[adminid]'");
 echo "Record updated successfully";
 }
@@ -33,8 +33,8 @@ echo "Record updated successfully";
 
 if($_GET[view] == "administrator")
 {
-$result = mysql_query("SELECT * FROM administrator where adminid='$_GET[slid]'");	
- while($row1 = mysql_fetch_array($result))
+$result = mysqli_query($con,"SELECT * FROM administrator where adminid='$_GET[slid]'");	
+ while($row1 = mysqli_fetch_array($result))
   {
 	$adminid = $row1["adminid"];
 	$password = $row1["password"];

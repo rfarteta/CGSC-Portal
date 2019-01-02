@@ -1,23 +1,27 @@
 <?php 
 session_start();
-include("header.php"); 
+include("validation.php"); 
 include("conection.php");
 include("modal.php");
-if($_GET["view"] == "delete")
-{
-mysql_query("DELETE FROM lectures WHERE lecid ='$_GET[slid]'");
+include("sidebar.php"); 
+
+if(isset($_GET["view"])){
+  if($_GET["view"] == "delete")
+  {
+} 
+mysqli_query($con,"DELETE FROM lectures WHERE lecid ='$_GET[slid]'");
 }
 if(isset($_SESSION["userid"]))
 {
-	if(isset($_GET[first])) 
+	if(isset($_GET["first"])) 
 	{
 	}
 	else
 	{
-		$_GET[first] =0;
-	$_GET[last] = 10;
+		$_GET["first"] =0;
+	$_GET["last"] = 10;
 	}
-$result = mysql_query("SELECT * FROM lectures LIMIT $_GET[first] , $_GET[last]");
+$result = mysqli_query($con,"SELECT * FROM lectures LIMIT $_GET[first] , $_GET[last]");
 ?>
 <section id="page">
 <header id="pageheader" class="normalheader">
@@ -25,6 +29,7 @@ $result = mysql_query("SELECT * FROM lectures LIMIT $_GET[first] , $_GET[last]")
   </h2>
 </header>
 
+<div class="container-fluid">
 <section id="contents">
 
 <article class="post">
@@ -42,8 +47,8 @@ $result = mysql_query("SELECT * FROM lectures LIMIT $_GET[first] , $_GET[last]")
     
   </tr>
     <?php
-  $i =$_GET[first]+1;
-  while($row = mysql_fetch_array($result))
+  $i =$_GET["first"]+1;
+  while($row = mysqli_fetch_array($result))
   {
   echo "<tr>";
   echo "<td>&nbsp;"  . $i . "</td>";
@@ -53,13 +58,13 @@ $result = mysql_query("SELECT * FROM lectures LIMIT $_GET[first] , $_GET[last]")
 	   	   echo "<td>&nbsp;<a href='viewrecords.php?slid=$row[lecid]&view=lectures'><img src='images/view.png' width='32' height='32' /></a> 
 <a href='lecture.php?slid=$row[lecid]&view=lectures'>  <img src='images/edit.png' width='32' height='32' /></a>";
 ?>
-<a href='lectureview.php?slid=<?php echo $row[lecid]; ?>&view=delete'><img src='images/delete.png' width='32' height='32'  onclick="return confirm('Are you sure??')"/></a></td>
+<a href='lectureview.php?slid=<?php echo $row["lecid"]; ?>&view=delete'><img src='images/delete.png' width='32' height='32'  onclick="return confirm('Are you sure??')"/></a></td>
   <?php
   echo "</tr>&nbsp;";
   $i++;
   }
-  $first=$_GET[first]-10;
-$last= $_GET[last]- 10;
+  $first=$_GET["first"]-10;
+$last= $_GET["last"]- 10;
 
 ?>
   <tr>
@@ -76,13 +81,13 @@ $last= $_GET[last]- 10;
 	?><img src="images/previous.png" alt="" width="32" height="32" /></td>
     <td><a href="#" onClick="openleture(); return false"><img src="images/add.png" alt="" width="32" height="32" /></a></td>
      <?php 
-$first=$_GET[first]+10;
-$last = $_GET[last]+ 10;
+$first=$_GET["first"]+10;
+$last = $_GET["last"]+ 10;
 ?>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
     <td><?php 
-	if($first > mysql_num_rows($result))
+	if($first > mysqli_num_rows($result))
 	{ 
 	} 
 	else 
@@ -106,5 +111,6 @@ else
 {
 		header("Location: admin.php");
 }
-include("adminmenu.php");
 include("footer.php"); ?>
+
+</div>

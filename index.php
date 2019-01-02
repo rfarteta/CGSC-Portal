@@ -25,7 +25,7 @@
           <h3 class="jumbotron-heading">Academic Registration Information System</h3>
         </div>
       </section>
-
+    
       <div class="album py-5 bg-light">
         <div class="container">
 

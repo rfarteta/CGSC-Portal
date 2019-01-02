@@ -1,34 +1,38 @@
 <?php 
 session_start();
-include("header.php"); 
+include("validation.php"); 
 include("conection.php");
 include("modal.php");
-if($_GET["view"] == "delete")
-{
-mysql_query("DELETE FROM studentdetails WHERE studid ='$_GET[slid]'");
+include("sidebar.php");
+
+if(isset($_GET["view"])){
+  if($_GET["view"] == "delete")
+  {
+}  
+mysqli_query($con,"DELETE FROM studentdetails WHERE studid ='$_GET[slid]'");
 }
 
 if(isset($_SESSION["userid"]))
 {
-	if(isset($_GET[first])) 
+	if(isset($_GET["first"])) 
 	{
 	}
 	else
 	{
-		$_GET[first] =0;
-	$_GET[last] = 10;
+		$_GET["first"] =0;
+	$_GET["last"] = 10;
 	}
 	
 		if(isset($_POST["button"]))
 	{
-		$result = mysql_query("SELECT * FROM studentdetails where courseid='$_POST[courseid]' && semester='$_POST[semester]'");
+		$result = mysqli_query($con,"SELECT * FROM studentdetails where courseid='$_POST[courseid]' && semester='$_POST[semester]'");
 	}
 	else
 	{
-$result = mysql_query("SELECT * FROM studentdetails LIMIT $_GET[first] , $_GET[last]");
+$result = mysqli_query($con,"SELECT * FROM studentdetails LIMIT $_GET[first] , $_GET[last]");
 	}
 
-$result1= mysql_query("SELECT * FROM course LIMIT $_GET[first] , $_GET[last]");
+$result1= mysqli_query($con,"SELECT * FROM course LIMIT $_GET[first] , $_GET[last]");
 ?>
 <section id="page">
 <header id="pageheader" class="normalheader">
@@ -36,6 +40,7 @@ $result1= mysql_query("SELECT * FROM course LIMIT $_GET[first] , $_GET[last]");
   </h2>
 </header>
 
+<div class="container-fluid">
 <section id="contents">
 
 <article class="post">
@@ -48,7 +53,7 @@ $result1= mysql_query("SELECT * FROM course LIMIT $_GET[first] , $_GET[last]");
     <select name="courseid" id="select2">
       <option value=""> Select Course </option>
       <?php
- while($row1 = mysql_fetch_array($result1))
+ while($row1 = mysqli_fetch_array($result1))
   {
   echo "<option value='$row1[courseid]'>$row1[coursekey]</option>";
   }
@@ -80,7 +85,7 @@ $result1= mysql_query("SELECT * FROM course LIMIT $_GET[first] , $_GET[last]");
   </section>
   <section class="entry">
   <?php 
-if(mysql_num_rows($result) >= 1)
+if(mysqli_num_rows($result) >= 1)
 {
 	?>
     <table width="500" border="1">
@@ -99,8 +104,8 @@ if(mysql_num_rows($result) >= 1)
 	?>
         </tr>
       <?php
-$i =$_GET[first]+1;
-  while($row = mysql_fetch_array($result))
+$i =$_GET["first"]+1;
+  while($row = mysqli_fetch_array($result))
   {
   echo "<tr>";
     echo "<td>&nbsp;"  . $i . "</td>";
@@ -124,8 +129,8 @@ $i =$_GET[first]+1;
   } 
     if($_SESSION["type"]=="admin")
 	{
-		$first=$_GET[first]-10;
-$last= $_GET[last]- 10;
+		$first=$_GET["first"]-10;
+$last= $_GET["last"]- 10;
  
 ?>
       <tr>
@@ -142,11 +147,11 @@ $last= $_GET[last]- 10;
 	?><img src="images/previous.png" alt="" width="32" height="32" /></td>
         <td colspan="2"><a href="#" onClick="openstudent(); return false"><img src="images/add.png" alt="" width="32" height="32" /></a></td>
           <?php 
-$first=$_GET[first]+10;
-$last = $_GET[last]+ 10;
+$first=$_GET["first"]+10;
+$last = $_GET["last"]+ 10;
 ?>
         <td><div align="right"><?php 
-	if($first > mysql_num_rows($result))
+	if($first > mysqli_num_rows($result))
 	{ 
 	} 
 	else 
@@ -190,7 +195,6 @@ else
 }
 if($_SESSION["type"]=="admin")
 	{
-	include("adminmenu.php");
 	}
 	else
 	{	
@@ -199,3 +203,4 @@ if($_SESSION["type"]=="admin")
 
 include("footer.php"); ?>
 
+</div>

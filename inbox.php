@@ -2,8 +2,8 @@
 include("header.php");
 include("conection.php");
 
-$recinbox = mysql_query("SELECT * FROM contact where contactid='$_GET[eid]'");
-while($row = mysql_fetch_array($recinbox))
+$recinbox = mysqli_query($con,"SELECT * FROM contact where contactid='$_GET[eid]'");
+while($row = mysqli_fetch_array($recinbox))
   {
 $name =	  $row["name"];
 $emailid=	  $row["emailid"];

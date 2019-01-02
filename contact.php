@@ -21,9 +21,9 @@ include("header.php");
             {
             include("conection.php");
             $sql="INSERT INTO contact (name, emailid, contactno, subject, message) VALUES ('$_POST[name]','$_POST[email]','$_POST[contact]','$_POST[subject]','$_POST[message]')";
-            if (!mysql_query($sql,$con))
+            if (!mysqli_query($con,$sql,$con))
             {
-            die('Error in mysql: ' . mysql_error());
+            die('Error in mysql: ' . mysqli_error());
             }
             else
             {

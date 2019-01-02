@@ -26,8 +26,8 @@ if(isset($_SESSION["userid"]))
 if($_GET[view]=="course")
 {
 // Course table starts here
-$result = mysql_query("SELECT * FROM course where courseid='$_GET[slid]'");
-while($row = mysql_fetch_array($result))
+$result = mysqli_query($con,"SELECT * FROM course where courseid='$_GET[slid]'");
+while($row = mysqli_fetch_array($result))
   {
  $courseid =  $row["courseid"];
  $coursename = $row["coursename"];
@@ -70,8 +70,8 @@ $coursekey =   $row["coursekey"];
  if($_GET[view]=="subject")
 {
 // Subject table starts here
-$result1 = mysql_query("SELECT * FROM subject where subid='$_GET[slid]'");
-while($row1 = mysql_fetch_array($result1))
+$result1 = mysqli_query($con,"SELECT * FROM subject where subid='$_GET[slid]'");
+while($row1 = mysqli_fetch_array($result1))
   {
  $subid =  $row1["subid"];
  $subname = $row1["subname"];
@@ -131,8 +131,8 @@ $comment =   $row1["comment"];
  if($_GET[view]=="lectures")
 {
 // Lecture table starts here
-$result2 = mysql_query("SELECT * FROM lectures where lecid='$_GET[slid]'");
-while($row2 = mysql_fetch_array($result2))
+$result2 = mysqli_query($con,"SELECT * FROM lectures where lecid='$_GET[slid]'");
+while($row2 = mysqli_fetch_array($result2))
   {
  $lecid =  $row2["lecid"];
  $password = $row2["password"];
@@ -187,8 +187,8 @@ $contactno = $row2["contactno"];
  if($_GET[view]=="studentdetails")
 {
 // Student table starts here
-$result3 = mysql_query("SELECT * FROM studentdetails where studid='$_GET[slid]'");
-while($row3 = mysql_fetch_array($result3))
+$result3 = mysqli_query($con,"SELECT * FROM studentdetails where studid='$_GET[slid]'");
+while($row3 = mysqli_fetch_array($result3))
   {
  $studid =  $row3["studid"];
  $studfname = $row3["studfname"];
@@ -264,8 +264,8 @@ $dob = $row3["dob"];
  if($_GET[view]=="attendance")
 {
 // Attendance table starts here
-$result4 = mysql_query("SELECT * FROM attendance where attid='$_GET[slid]'");
-while($row4 = mysql_fetch_array($result4))
+$result4 = mysqli_query($con,"SELECT * FROM attendance where attid='$_GET[slid]'");
+while($row4 = mysqli_fetch_array($result4))
   {
  $attid =  $row4["attid"];
  $studid = $row4["studid"];
@@ -325,8 +325,8 @@ $comment = $row4["comment"];
  if($_GET[view]=="examination")
 {
 // Examination table starts here
-$result5 = mysql_query("SELECT * FROM examination where examid='$_GET[slid]'");
-while($row5 = mysql_fetch_array($result5))
+$result5 = mysqli_query($con,"SELECT * FROM examination where examid='$_GET[slid]'");
+while($row5 = mysqli_fetch_array($result5))
   {
  $examid =  $row5["examid"];
  $studid = $row5["studid"];
@@ -396,8 +396,8 @@ $comment = $row5["comment"];
 if($_GET[view]=="administrator")
 {
 // Administrator table starts here
-$result6 = mysql_query("SELECT * FROM administrator where adminid='$_GET[slid]'");
-while($row6 = mysql_fetch_array($result6))
+$result6 = mysqli_query($con,"SELECT * FROM administrator where adminid='$_GET[slid]'");
+while($row6 = mysqli_fetch_array($result6))
   {
  $adminid =  $row6["adminid"];
  $password = $row6["password"];

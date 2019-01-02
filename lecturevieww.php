@@ -3,9 +3,9 @@ session_start();
 include("header.php"); 
 include("conection.php");
 
-$result = mysql_query("SELECT * FROM lectures
+$result = mysqli_query($con,"SELECT * FROM lectures
 WHERE lecid='$_SESSION[userid]'");
- while($row1 = mysql_fetch_array($result))
+ while($row1 = mysqli_fetch_array($result))
   {
 	  $lecid = $row1[lecid];
 	$pass =	  $row1[password]; 	
@@ -14,9 +14,9 @@ WHERE lecid='$_SESSION[userid]'");
 	$address = 	  $row1[address]; 	
 	$contno =	  $row1[contactno];
   }
-  $result12 = mysql_query("SELECT * FROM course
+  $result12 = mysqli_query($con,"SELECT * FROM course
 WHERE courseid 	='$couseid'");
- while($row2 = mysql_fetch_array($result12))
+ while($row2 = mysqli_fetch_array($result12))
   {
 	  $cbane =	  $row2[coursename];
   }

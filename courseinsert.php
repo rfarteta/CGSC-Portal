@@ -2,9 +2,9 @@
 include("validation.php");
 include("conection.php");
 
-$totcourse = mysql_query("SELECT MAX(courseid) FROM course");
+$totcourse = mysqli_query($con,"SELECT MAX(courseid) FROM course");
 
- while($row1 = mysql_fetch_array($totcourse))
+ while($row1 = mysqli_fetch_array($totcourse))
   {
 $totid = $row1[0]+1;
   }
@@ -14,9 +14,9 @@ $sql="INSERT INTO course (courseid, coursename, comment, coursekey)
 VALUES
 ('$_POST[courseid]','$_POST[coursename]','$_POST[comment]','$_POST[coursekey]')";
 
-if (!mysql_query($sql,$con))
+if (!mysqli_query($con,$sql,$con))
   {
-  die('Error: ' . mysql_error());
+  die('Error: ' . mysqli_error());
   }
   else
   {
@@ -26,15 +26,15 @@ if (!mysql_query($sql,$con))
 
 if(isset($_POST["button2"]))
 {
-mysql_query("UPDATE course SET coursename='$_POST[coursename]', 	comment='$_POST[comment]', 	coursekey='$_POST[coursekey]' WHERE courseid = '$_POST[courseid]'");
+mysqli_query($con,"UPDATE course SET coursename='$_POST[coursename]', 	comment='$_POST[comment]', 	coursekey='$_POST[coursekey]' WHERE courseid = '$_POST[courseid]'");
 echo "Record updated successfully...";
 }
 
 
 if($_GET["view"] == "course")
 {
-$result = mysql_query("SELECT * FROM course where courseid='$_GET[slid]'");	
- while($row1 = mysql_fetch_array($result))
+$result = mysqli_query($con,"SELECT * FROM course where courseid='$_GET[slid]'");	
+ while($row1 = mysqli_fetch_array($result))
   {
 	$totid = $row1["courseid"];
 	$coursename = $row1["coursename"];
@@ -44,7 +44,7 @@ $result = mysql_query("SELECT * FROM course where courseid='$_GET[slid]'");
 }
 else
 {
-$result = mysql_query("SELECT * FROM course");
+$result = mysqli_query($con,"SELECT * FROM course");
 }
 
 ?> 

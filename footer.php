@@ -1,8 +1,7 @@
 <footer class="text-muted">
-      <div class="container">
-        <p class="float-right">
-          <a href="#">Back to top</a>
-        </p>
-        <p>All Rights Reserved © Academic Registration Information System - Group 7 - AICS</p>
-      </div>
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span>All Rights Reserved © Academic Registration Information System - Group 7 - AICS</span>
+        </div>
+    </div>    
 </footer>

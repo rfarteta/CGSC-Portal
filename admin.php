@@ -20,8 +20,8 @@ include("conection.php");
 if(isset($_POST["uid"]) && isset($_POST["pwd"]) )
 {
 //	echo "sdfsd".	$_POST[uid];
-$result = mysql_query("SELECT * FROM administrator WHERE adminid='$_POST[uid]'");
-while($row = mysql_fetch_array($result))
+$result = mysqli_query($con,"SELECT * FROM administrator WHERE adminid='$_POST[uid]'");
+while($row = mysqli_fetch_array($result))
   {
 $pwdmd5 = $row["password"];
   }
@@ -41,8 +41,8 @@ $log =  "Login failed.. Please try again..";
 if(isset($_POST["luid"]) && isset($_POST["lpwd"]))
 {
 
-$result = mysql_query("SELECT * FROM lectures WHERE lecid='$_POST[luid]'");
-	while($row = mysql_fetch_array($result))
+$result = mysqli_query($con,"SELECT * FROM lectures WHERE lecid='$_POST[luid]'");
+	while($row = mysqli_fetch_array($result))
  	 {
 $pwdm= $row["password"];
 $_SESSION["lecname"] = $row["lecname"];
@@ -107,7 +107,7 @@ else
             <header class="postheader">
               <h2><u>Lectures Login</u></h2>
               <h2>
-              <?php if(!empty($log)){ ?>  
+              <?php if(!empty($log12)){ ?>  
                 <?php echo $log12;?>
               <?php }?>  
               </h2>

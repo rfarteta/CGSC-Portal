@@ -1,13 +1,14 @@
 <?php
 session_start(); 
-include("header.php"); 
+include("validation.php"); 
 include("conection.php");
+include("sidebar.php");
 
 if(isset($_POST["submit"]))
 {
-$result = mysql_query("SELECT * FROM administrator
+$result = mysqli_query($con,"SELECT * FROM administrator
 WHERE adminid='$_POST[uid]' and password='$_POST[pwd]'");
-if(mysql_num_rows($result)==0)
+if(mysqli_num_rows($result)==0)
 {
 $log =  "Login failed";
 }
@@ -30,8 +31,8 @@ Dashboard.  </h2>
   <h2>Attendance</h2>
  <?php
 include("conection.php");
-$result = mysql_query("SELECT * FROM course");
-$result1 = mysql_query("SELECT * FROM subject");
+$result = mysqli_query($con,"SELECT * FROM course");
+$result1 = mysqli_query($con,"SELECT * FROM subject");
 ?>
 <form name="form1" method="post" action="attendanceinsert.php">
   <p>
@@ -41,7 +42,7 @@ $result1 = mysql_query("SELECT * FROM subject");
     <select name="course" >
      <option value="">Course Details</option>
      <?php
- while($row1 = mysql_fetch_array($result))
+ while($row1 = mysqli_fetch_array($result))
   {
   echo "<option value='$row1[courseid]'>$row1[coursekey]</option>";
   }
@@ -67,7 +68,7 @@ $result1 = mysql_query("SELECT * FROM subject");
     <label for="select3"></label>
     <select name="subject" id="select3">
     <?php
- while($row2 = mysql_fetch_array($result1))
+ while($row2 = mysqli_fetch_array($result1))
   {
   echo "<option value='$row2[subid]'>$row2[subname]</option>";
   }
@@ -101,7 +102,6 @@ $result1 = mysql_query("SELECT * FROM subject");
 <?php 
 	if($_SESSION["type"]=="admin")
 	{
-	include("adminmenu.php");
 	}
 	else
 	{	

@@ -1,7 +1,7 @@
 <?php
 include("conection.php");
-$result = mysql_query("SELECT * FROM course");
-$result1 = mysql_query("SELECT * FROM studentdetails where semester='$_POST[cmbsemester]' AND courseid='$_POST[cmbcourse]' ");
+$result = mysqli_query($con,"SELECT * FROM course");
+$result1 = mysqli_query($con,"SELECT * FROM studentdetails where semester='$_POST[cmbsemester]' AND courseid='$_POST[cmbcourse]' ");
 
 echo "<table border='1'>
 <tr>
@@ -13,7 +13,7 @@ echo "<table border='1'>
 <th>Date of birth</th>
 </tr>";
 
-while($row = mysql_fetch_array($result1))
+while($row = mysqli_fetch_array($result1))
   {
   echo "<tr>";
   echo "<td>" . $row['studid'] . "</td>";
@@ -44,7 +44,7 @@ while($row = mysql_fetch_array($result1))
     <select name="cmbcourse" id="cmbcourse">
     <option value="">Course Details</option>
       <?php
- while($row1 = mysql_fetch_array($result))
+ while($row1 = mysqli_fetch_array($result))
   {
   echo "<option value='$row1[courseid]'>$row1[coursename]</option>";
   }
