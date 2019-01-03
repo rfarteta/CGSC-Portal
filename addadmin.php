@@ -3,12 +3,12 @@ include("validation.php");
 include("conection.php");
 if(isset($_POST["button"]))
 {
-	$pwde = md5($_POST[password]);
+	$pwde = md5($_POST["password"]);
 $sql="INSERT INTO administrator (adminid, adminname, password, address, contactno)
 VALUES
 ('$_POST[adminid]','$_POST[adminname]','$pwde','$_POST[address]','$_POST[contactno]')";
 
-if (!mysqli_query($sql,$con))
+if (!mysqli_query($con, $sql))
   {
   die('Error: ' . mysqli_error());
   }
@@ -24,14 +24,14 @@ while($row1 = mysqli_fetch_array($result))
 	}
 if(isset($_POST["button2"]))
 {
-	$pwde = md5($_POST[password]);
+	$pwde = md5($_POST["password"]);
 mysqli_query($con,"UPDATE administrator SET 	adminname='$_POST[adminname]', 	address='$_POST[address]', 	contactno='$_POST[contactno]'
 WHERE adminid = '$_POST[adminid]'");
 echo "Record updated successfully";
 }
 
-
-if($_GET[view] == "administrator")
+if(isset($_GET["view"])){
+if($_GET["view"] == "administrator")
 {
 $result = mysqli_query($con,"SELECT * FROM administrator where adminid='$_GET[slid]'");	
  while($row1 = mysqli_fetch_array($result))
@@ -42,6 +42,7 @@ $result = mysqli_query($con,"SELECT * FROM administrator where adminid='$_GET[sl
 	$address = $row1["address"];
 $contact = 	$row1["contactno"];
 	}
+}
 }
 
 
@@ -54,7 +55,7 @@ $contact = 	$row1["contactno"];
 </p>
   <p>
     <label for="adminname">Admin Name</label>
-    <input type="text" name="adminname" id="adminname"  class="validate[required,custom[onlyLetterSp]] text-input"  value="<?php echo $adminname; ?>">
+    <input type="text" name="adminname" id="adminname"  class="validate[required,custom[onlyLetterSp]] text-input"  value="<?php if(!empty($adminname)){ echo $adminname; }?>">
 </p>
 <p>
   <label for="password">Password</label>
@@ -66,11 +67,11 @@ $contact = 	$row1["contactno"];
 </p>
   <p>
     <label for="address">Address</label>
-    <textarea name="address" id="address" class="validate[required] text-input" cols="45" rows="5"  ><?php echo $address; ?></textarea>
+    <textarea name="address" id="address" class="validate[required] text-input" cols="45" rows="5"  ><?php if(!empty($address)){ echo $address; } ?></textarea>
 </p>
   <p>
     <label for="contactno">Contact No</label>
-    <input type="text" name="contactno" id="contactno"  class="validate[required,custom[phone]] text-input" value="<?php echo $contact; ?>">
+    <input type="text" name="contactno" id="contactno"  class="validate[required,custom[phone]] text-input" value="<?php if(!empty($contact)){ echo $contact; }?>">
 </p>
   <p>
     <input type="submit" name="button" id="button" value="Submit">

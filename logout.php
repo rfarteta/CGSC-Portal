@@ -11,7 +11,7 @@ session_destroy();
 
 <article class="post">
 <header class="postheader">
-<h2><a href="#">Logged Out Successfully</a>...</h2>
+<h2><a href="index.php">Logged Out Successfully</a>...</h2>
 <p class="postinfo">&nbsp;</p>
 </header>
 <p>

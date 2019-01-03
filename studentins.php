@@ -1,19 +1,23 @@
 <?php
 include("validation.php");
 include("conection.php");
-	
- $wordChunks = explode("-", $_POST[dob]);
+if(isset($_GET["dob"])){
+ $wordChunks = explode("-", $_POST["dob"]);
+}
+if(isset($_GET["view"])){
+if(!empty($name)){
 for($i = 0; $i < count($wordChunks); $i++)
 {
 $name[$i] = $wordChunks[$i] ;
+}
 }
 if(strlen($name[1]) == 1)
 {
 $name[1] = "0". $name[1];
 }
-
 $dbda = $name[2] . "-" . $name[0]. "-". $name[1];
-if(isset($_POST[button]))
+
+if(isset($_POST["button"]))
 {
 $sql="INSERT INTO studentdetails (studid, studfname, studlname, dob, fathername, gender, address, contactno,courseid,semester)
 VALUES
@@ -39,6 +43,7 @@ echo "Record updated successfully...";
 
 if($_GET["view"] == "studentdetails")
 {
+}  
 $result = mysqli_query($con,"SELECT * FROM studentdetails where studid='$_GET[slid]'");	
  while($row1 = mysqli_fetch_array($result))
   {
@@ -64,48 +69,53 @@ $result1 = mysqli_query($con,"SELECT * FROM course");
 <form name="form1" method="post" action="" id="formID">
   <p>
     <label for="textfield">Student ID</label>
-    <input type="text" name="studid" id="textid" class="validate[required] text-input" value="<?php echo $totid; ?>">
+    <input type="text" name="studid" id="textid" class="validate[required] text-input" value="<?php if(!empty($totid)){ echo $totid; }?>">
   </p>
   <p>
     <label for="textfield2">First Name</label>
-    <input type="text" name="studfname" id="textfname" class="validate[required,custom[onlyLetterSp]] text-input" value="<?php echo $studfname; ?>">
+    <input type="text" name="studfname" id="textfname" class="validate[required,custom[onlyLetterSp]] text-input" value="<?php if(!empty($studfname)){ echo $studfname; }?>">
   </p>
   <p>
     <label for="textfield3">Last Name</label>
-    <input type="text" name="studlname" id="textlname" class="validate[required,custom[onlyLetterSp]] text-input" value="<?php echo $studlname; ?>">
+    <input type="text" name="studlname" id="textlname" class="validate[required,custom[onlyLetterSp]] text-input" value="<?php if(!empty($studlname)){ echo $studlname; }?>">
   </p>
   <p>
     <label for="textfield4">Date of Birth</label>
         <script src="datetimepicker_css.js"></script>
-              <input type="Text" name="dob" id="textdob" maxlength="25" size="25" class="validate[required,[date]]  value="<?php echo $dob; ?>"/>
+              <input type="Text" name="dob" id="textdob" maxlength="25" size="25" class="validate[required,[date]]  value="<?php if(!empty($dob)){ echo $dob; }?>"/>
         <img src="images2/cal.gif" onclick="javascript:NewCssCal('textdob')" style="cursor:pointer"/>
   </p>
   <p>
     <label for="textfield5">Father's Name</label>
-    <input type="text" name="fname" id="textfield5" class="validate[required,custom[onlyLetterSp]] text-input" value="<?php echo $fathername; ?>" >
+    <input type="text" name="fname" id="textfield5" class="validate[required,custom[onlyLetterSp]] text-input" value="<?php if(!empty($fathername)){ echo $fathername; }?>" >
   </p>
   <p>Gender
 
-    <input type="radio" name="gender" id="radio" value="Male" <?php
+    <input type="radio" name="gender" id="radio" value="Male" 
+    <?php
+    if(!empty($gender)){
   if($gender == "Male")
   {
 	  echo "checked";
   }
+}
   ?> class="validate[required] radio" >
     <label for="radio">Male</label>
-    <input type="radio" name="gender" id="radio2" value="Female"  <?php if($gender == "Female")
+    <input type="radio" name="gender" id="radio2" value="Female"  <?php if(!empty($gender)){ if($gender == "Female")
   {
 	  echo "checked";
-  }?> class="validate[required] radio" >
+  }
+}
+  ?> class="validate[required] radio" >
     <label for="radio2">Female</label>
   </p>
   <p>
     <label for="textarea">Address</label>
-    <textarea name="address" id="textarea" class="validate[required]"  cols="45" rows="5"><?php echo $address; ?></textarea>
+    <textarea name="address" id="textarea" class="validate[required]"  cols="45" rows="5"><?php if(!empty($address)){ echo $address; }?></textarea>
   </p>
   <p>
     <label for="textfield6">Contact No. </label>
-    <input type="text" name="contact" id="textfield6" class="validate[required,custom[phone]] value="<?php echo $contactno; ?>">
+    <input type="text" name="contact" id="textfield6" class="validate[required,custom[phone]] value="<?php if(!empty($contactno)){ echo $contactno; }?>">
   </p>
   <p>
     <label for="textfield7">Course </label>

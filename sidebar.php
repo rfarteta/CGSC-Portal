@@ -63,9 +63,15 @@
           </a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="contactview.php">
+          <a class="nav-link" href="contact.php">
             <i class="fas fa-fw "></i>
             <span>Contact</span>
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="logout.php">
+            <i class="fas fa-fw "></i>
+            <span>Logout</span>
           </a>
         </li>
       </ul>

@@ -1,3 +1,6 @@
+<?php
+include("validation.php");
+?>
 <script>
     function submit_form()
         {
@@ -45,10 +48,18 @@ include("conection.php");
 
   //$listvals=$_POST['mylist'];
   // $n=count($listvals);
+  if(isset($_POST["stuid"])){
   $stuid=$_POST['stuid'];
-    $attclass =$_POST['attclass'];
-	$percent =$_POST['percentage'];
-	$comment =$_POST['comment'];
+  }
+  if(isset($_POST["attclass"])){
+  $attclass =$_POST['attclass'];
+  }
+  if(isset($_POST["percentage"])){
+  $percent =$_POST['percentage'];
+  }
+  if(isset($_POST["comment"])){
+  $comment =$_POST['comment'];
+  } 
 //echo  $_POST["totstdnt"];
 if(isset($_POST["btnupdte"]))
 	{
@@ -56,7 +67,7 @@ if(isset($_POST["btnupdte"]))
 attendedclasses = '$attclass[$i],'percentage='$percent[$i]',comment='$comment[$i]' WHERE attid ='$_POST[attid]'");
 	}
 	
-if(isset($_POST[button2]))
+if(isset($_POST["button2"]))
 	{
   for($i=0;$i<=$_POST["totstdnt"];$i++)
   {
@@ -66,14 +77,14 @@ if(isset($_POST[button2]))
 VALUES
 ('$stuid[$i]','$_POST[subid]','$_POST[totclass]','$attclass[$i]','$percent[$i]','$comment[$i]')";
 
-if (!mysqli_query($sql,$con))
+if (!mysqli_query($con,$sql))
   {
   die('Error: ' . mysqli_error());
   }
 	 
    }
 	}
-if(isset($_GET[slid]))
+if(isset($_GET["slid"]))
 {
 $rescourse1 = mysqli_query($con,"SELECT * FROM attendance where attid ='$_GET[slid]'");
 while($rowED = mysqli_fetch_array($rescourse1))
@@ -108,7 +119,7 @@ $tstudent = mysqli_num_rows($restotst);
 
  
  
-if(isset($_GET[slid]))
+if(isset($_GET["slid"]))
 {
 
   $restotstrec = mysqli_query($con,"SELECT * FROM studentdetails 
@@ -123,9 +134,9 @@ if(isset($_GET[slid]))
 	
 ?>
 
-<table width="964" border="1">
+<table class = "table" width="964" border="2">
   <tr>
-    <td>Course : <?php echo $coursename; ?></td>
+    <td>Course : <?php if(!empty($coursename)){ echo $coursename; }?></td>
     <td>Total Classes: <?php echo $_POST["totalclass"]; ?></td>
   </tr>
   <tr>
@@ -141,11 +152,11 @@ if(isset($_GET[slid]))
 
 	}
 	?>
-<table width="963" border="1">
+<table class="table" width="963" border="2">
 <form id="form1" name="form1" method="post" action="">
   <tr align="center">
     <td colspan="5" align="center">&nbsp;<?php 
-	if(isset($_POST[button2]))
+	if(isset($_POST["button2"]))
 	{
 	echo "<b>Record inserted Successfully...</b>"; 
 	}
@@ -220,7 +231,7 @@ else
       <tr align="right">
     <td height="39" colspan="5">
     <?php
-      if(isset($_GET[slid]))
+      if(isset($_GET["slid"]))
 {
 	
 	?> 

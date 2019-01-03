@@ -7,7 +7,6 @@ include("modal.php");
 include("sidebar.php");
 $abc = 100;
 if(isset($_GET["view"])){
-
 	if($_GET["view"] == "delete")
 	{
 }
@@ -69,7 +68,7 @@ alert('A wise decision!')
   </header>
   <section class="entry">
   <font color="#330000">
-    <table width="428" border="1">
+    <table class = "table" width="428" border="2">
   <tr>
     <th width="113" scope="col">SL. No.</th>
     <th width="122" scope="col">Course</th>
@@ -93,9 +92,9 @@ alert('A wise decision!')
       if($_SESSION["type"]=="admin")
 	{
    echo "<td>&nbsp;<a href='viewrecords.php?slid=$row[courseid]&view=course'><img src='images/view.png' width='32' height='32' /></a>";
- echo "<img src='images/edit.png' width='32' height='32'  onclick='Openeditcourse(". $row[courseid].")'/>";
+ echo "<img src='images/edit.png' width='32' height='32'  onclick='Openeditcourse(". $row["courseid"].")'/>";
  ?>
-<a href="course.php?slid=<?php echo $row[courseid]; ?>&view=delete" onclick="return confirm('Are you sure??')">
+<a href="course.php?slid=<?php echo $row["courseid"]; ?>&view=delete" onclick="return confirm('Are you sure??')">
  <?php
  echo "<img src='images/delete.png' width='32' height='32' /></a></td>";
 	}

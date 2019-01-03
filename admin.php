@@ -49,14 +49,15 @@ $_SESSION["lecname"] = $row["lecname"];
 $_SESSION["coid"] = $row["courseid"];
   	}
 //echo"pwd". md5($_POST["lpwd"]);
-
+if(!empty($log)){
 if(md5($_POST["lpwd"])==$pwdm)
 	{
 		//echo $_POST["lpwd"];
 	$_SESSION["userid"] = $_POST["luid"];
 	$_SESSION["type"]=="lecturer";
 	header("Location: lectureaccount.php");
-	}
+  }
+}  
 else
 	{
 		$log12 =  "Login failed.. Please try again..";

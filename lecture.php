@@ -7,14 +7,14 @@ $totcourse = mysqli_query($con,"SELECT * FROM lectures");
 $result1 = mysqli_query($con,"SELECT * FROM course");
 $totid = mysqli_num_rows($totcourse)+1;
 
-if(isset($_POST[button]))
+if(isset($_POST["button"]))
 {
-	$pwde = md5($_POST[password]);
+	$pwde = md5($_POST["password"]);
 $sql="INSERT INTO lectures (lecid, password, courseid, lecname, gender, address ,contactno)
 VALUES
 ('$_POST[lecid]','$pwde', '$_POST[course]',  '$_POST[lecname]', '$_POST[gender]','$_POST[address]','$_POST[contactno]')";
 
-if (!mysqli_query($con,$sql,$con))
+if (!mysqli_query($con,$sql))
   {
   die('Error: ' . mysqli_error());
   }
@@ -27,13 +27,14 @@ if (!mysqli_query($con,$sql,$con))
 if(isset($_POST["button2"]))
 {
 	$pwde = md5($_POST[password]);
-mysqli_query($con,"UPDATE lectures SET lecname='$_POST[lecname]',     gender='$_POST[gender]', address='$_POST[address]', courseid='$_POST[coursekey]' 	contactno='$_POST[contactno]' WHERE lecid = '$_POST[lecid]'");
+mysqli_query($con,"UPDATE lectures SET lecname='$_POST[lecname]',   gender='$_POST[gender]', address='$_POST[address]', courseid='$_POST[coursekey]' 	contactno='$_POST[contactno]' WHERE lecid = '$_POST[lecid]'");
 echo "Record updated successfully...";
 }
 
-
+if(isset($_GET["view"])){
 if($_GET["view"] == "lectures")
 {
+}
 $result = mysqli_query($con,"SELECT * FROM lectures where lecid='$_GET[slid]'");	
  while($row1 = mysqli_fetch_array($result))
   {
@@ -60,7 +61,7 @@ $result = mysqli_query($con,"SELECT * FROM lectures");
   </p>
   <p>
   <label for="lecname">Lecturer Name</label>
-    <input type="text" name="lecname" id="lecname" class="validate[required,custom[onlyLetterSp]] text-input" value="<?php echo $lecname; ?>">
+    <input type="text" name="lecname" id="lecname" class="validate[required,custom[onlyLetterSp]] text-input" value="<?php if(!empty($subname)){ echo $lecname; }?>">
   </p>
   <p>
     <label for="password">Password</label>
@@ -89,25 +90,32 @@ $result = mysqli_query($con,"SELECT * FROM lectures");
   </p>
   <p>Gender
     <input type="radio" name="gender" id="radio" value="Male" <?php
+if(!empty($gender)){
   if($gender == "Male")
   {
 	  echo "checked";
   }
+}
   ?> class="validate[required] radio" />
     <label for="radio">Male</label>
-    <input type="radio" name="gender" id="radio2" value="Female"  <?php if($gender == "Female")
+    <input type="radio" name="gender" id="radio2" value="Female"  
+    <?php 
+if(!empty($gender)){
+  if($gender == "Female")
   {
 	  echo "checked";
-  }?> class="validate[required] radio" />
+  }
+}
+  ?> class="validate[required] radio" />
     <label for="radio2">Female</label>
   </p>
   <p>
     <label for="address">Address</label>
-    <textarea name="address" id="address" class="validate[required]" cols="25" rows="5"><?php echo $address; ?></textarea>
+    <textarea name="address" id="address" class="validate[required]" cols="25" rows="5"><?php if(!empty($address)){ echo $address; }?></textarea>
   </p>
   <p>
     <label for="contactno">Contact No</label>
-    <input type="text" name="contactno" id="contactno" class="validate[required,custom[phone]] text-input"  value="<?php echo $contactno; ?>">
+    <input type="text" name="contactno" id="contactno" class="validate[required,custom[phone]] text-input"  value="<?php if(!empty($gender)){ echo $contactno; }?>">
   </p>
   <p>
     <input type="submit" name="button" id="button" value="Submit"> 

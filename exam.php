@@ -1,5 +1,7 @@
 <?php
+include("validation.php");
 include("conection.php");
+include("sidebar.php");
 $result1 = mysqli_query($con,"SELECT * FROM subject");
 $result = mysqli_query($con,"SELECT * FROM course");
 ?>

@@ -14,7 +14,7 @@ $sql="INSERT INTO subject (subid, subname, comment, courseid,subtype, semester)
 VALUES
 ('$_POST[subid]','$_POST[subname]','$_POST[comment]','$_POST[course]','$_POST[subtype]','$_POST[semester]')";
 
-if (!mysqli_query($con,$sql,$con))
+if (!mysqli_query($con,$sql))
   {
   die('Error: ' . mysqli_error());
   }
@@ -30,9 +30,10 @@ mysqli_query($con,"UPDATE subject SET subname='$_POST[subname]', 	comment='$_POS
 echo "Record updated successfully...";
 }
 
-
+if(isset($_GET["view"])){
 if($_GET["view"] == "subject")
 {
+}
 $result = mysqli_query($con,"SELECT * FROM subject where subid='$_GET[slid]'");	
  while($row1 = mysqli_fetch_array($result))
   {
@@ -56,15 +57,15 @@ $reslec = mysqli_query($con,"SELECT * FROM lectures");
 <form name="form1" method="post" action="" id="formID">
   <p>
     <label for="textfield">Subject ID</label>
-    <input type="text" name="subid" id="textfield" class="validate[required] text-input" value="<?php echo $totid; ?>" readonly>
+    <input type="text" name="subid" id="textfield" class="validate[required] text-input" value="<?php  echo $totid; ?>" readonly>
   </p>
   <p>
     <label for="textfield2">Sub Name</label>
-    <input type="text" name="subname" id="textfield2" class="validate[required,custom[onlyLetterSp]] text-input" value="<?php echo $subname; ?>">
+    <input type="text" name="subname" id="textfield2" class="validate[required,custom[onlyLetterSp]] text-input" value="<?php if(!empty($subname)){ echo $subname; }?>">
   </p>
   <p>
     <label for="textarea">Comment</label>
-    <textarea name="comment" id="textarea" class="validate[required]" cols="25" rows="5"><?php echo $comment; ?></textarea>
+    <textarea name="comment" id="textarea" class="validate[required]" cols="25" rows="5"><?php if(!empty($comment)){ echo $comment; }?></textarea>
   </p>
  <p>
     <label for="textfield7">Course </label>

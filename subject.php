@@ -40,7 +40,7 @@ $reslec = mysqli_query($con,"SELECT * FROM lectures LIMIT $_GET[first] , $_GET[l
 		<h2>Subject  Details</h2>
 		</header>
 		<section class="entry">
-			<table width="508" border="1">
+			<table class = "table" width="508" border="2">
 		<tr>
 			<td width="45"><strong>ID</strong></td>
 			<td width="94"><strong>Subject Name</strong></td>
@@ -123,7 +123,7 @@ $reslec = mysqli_query($con,"SELECT * FROM lectures LIMIT $_GET[first] , $_GET[l
 		<?php
 		}
 		?>
-		</table>
+		</tabl>
 		</section>
 	</article>
 
